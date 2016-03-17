@@ -1,7 +1,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                                                                         %
 % MF Calport v1.0                                                         %
-% Â© 2015 by Marco Mueller                                                 %
+% © 2016 by Marco Mueller                                                 %
 % thanks to Linus Roemer, Alexis Reigel, Jeremy Gibbons                   %
 % <http://www.metaflop.com>                                               %
 % licensed under gpl v3: www.gnu.org/licenses/                            %
@@ -27,7 +27,7 @@
 font_size 10pt#;            % the "design size" of this font @hidden
 ht#:=7pt#;                  % height of characters           @hidden
 x_ht#:=5pt#;                % x-height of characters         $ 3 / 6
-desc_depth#:=2pt#;          % depth of descenders			 $ 1 / 3
+desc_depth#:=2.5pt#;          % depth of descenders			 $ 1 / 3
 u#:=0.1pt#;                 % unit width                     $ 0.05 / 2
 xgap#:=0.6pt#;              % horizontal adjustment          @hidden
 px#:=0.5pt#;                % horizontal thickness of pen    $ 0.1 / 1.5
@@ -37,7 +37,7 @@ ptiny#:=.05*min(px#,py#);   % tiny pen width for pen outline @hidden
 o#:=.2*(px#*cosd(prot))++(py#*sind(prot)); % overshoot       @hidden
 slant:=0;                   % slanting amount                $ -0.3 / 0.3
 font_normal_space 20u#;     % width of the space char		 @hidden
-dnum:=2;                    % number of dots                 $ 0.1 / 3
+dnum:=1.5;                    % number of dots                 $ 0.1 / 3
 penshape:=1;                % 1=circle / 2=square / 3=razor / 4=triangle / 5=pentagon
 
 input glyphs; bye;              
