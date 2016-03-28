@@ -1,170 +1,6 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%                                                                         %
-% MF Calport v1.0                                                         %
-% © 2016 by Marco Mueller                                                 %
-% "interdotdraw" and "dotdraw" macros by Linus Romer                      %
-% thanks to Linus Roemer, Alexis Reigel, Jeremy Gibbons                   %
-% <http://www.metaflop.com>                                               %
-% licensed under gpl v3: www.gnu.org/licenses/                            %
-%                                                                         %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%                                          
-%                                                                         %
-% This program is free software: you can redistribute it and/or modify    %
-% it under the terms of the GNU General Public License as published       %
-% bythe Free Software Foundation, either version 3 of the License, or     %
-% (at your option) any later version.                                     %
-%                                                                         %
-% This program is distributed in the hope that it will be useful,         %
-% but WITHOUT ANY WARRANTY; without even the implied warranty of          % 
-% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU        % 
-% General Public License for more details.                                %
-%                                                                         %
-% You should have received a copy of the GNU General Public License       %
-% along with this program. If not, see <http://www.gnu.org/licenses/>.    %
-%                                                                         %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% numbers
 
-mode_setup;
-currenttransform:=identity slanted slant;
-define_pixels(s,u,xgap,px,py,ptiny,x_ht,ht,o,desc_depth);
-
-% pen settings %
-path penpath;
-if penshape=1:
- penpath=fullcircle xscaled px yscaled py rotated prot;
- pickup pencircle xscaled px yscaled py rotated prot; 
-elseif penshape=2:
- penpath=unitsquare shifted -(.5,.5) xscaled px yscaled py rotated prot;
- pickup pensquare xscaled px yscaled py rotated prot; 
-elseif penshape=3:
- penpath=unitsquare shifted -(.5,.5) xscaled px yscaled eps rotated prot;
- pickup penrazor xscaled px rotated prot;
-elseif penshape=4:
- penpath=((dir(-30)--dir(90)--dir(210)--cycle) xscaled .5px yscaled .5py rotated prot);
- capsule_def(pentriangle) makepen(penpath);
- pickup pentriangle;
-elseif penshape=5:
- penpath=((dir(-54)--dir(18)--dir(90)--dir(162)--dir(234)--cycle) xscaled .5px yscaled .5py rotated prot);
- capsule_def(penpentagon) makepen(penpath);
- pickup penpentagon; 
-fi
-cornerpen:=savepen;
-
-def adjustwidth(expr left_adjustment,right_adjustment) = 
- l:=-hround(left_adjustment*hppp);
- interim xoffset:=-l; 
- charwd:=charwd+left_adjustment+right_adjustment; 
- r:=l+hround(charwd*hppp);
- w:=r-hround(right_adjustment*hppp); 
-enddef;
-
-% interdotdraw marks a path with equally spaced dots
-% the vertices inbetween the starting and end vertices 
-% are generally not hit exactly (in contrast to dotdraw)
-def interdotdraw expr c =
- begingroup
-  pickup pencircle scaled ptiny;
-  save arclengths,diameter,divlength,divnumber,j;
-  numeric diameter,divlength,divnumber,j;
-  pair arclengths[]; % needs to be in this format to avoid overflows
-  % note: the pair (11,500) means 11500
-  diameter:=max(px,py);
-  % draw first and last point:
-  draw penpath shifted point 0 of c;
-  % calculate the arclengths from the beginning to every 1/100-th part
-  % of a subpath, hence arclength[200] is the length of the subpath(0,2)
-  arclengths[0]:=(0,0);
-  for t=1 upto (100*length(c)):
-   arclengths[t]:=arclengths[t-1]
-    +(0,length((point ((t-1)/100) of c)-(point (t/100) of c)));
-   if ypart(arclengths[t])>1000:
-    arclengths[t]:=(xpart(arclengths[t])+1,ypart(arclengths[t])-1000);
-   fi
-  endfor
-  divnumber:=round(ypart(arclengths[100*length(c)])/(dnum*diameter)
-  +xpart(arclengths[100*length(c)])/(dnum*diameter)*1000); % number of points on one subpath
-  divlength:=ypart(arclengths[100*length(c)])/divnumber
-  +xpart(arclengths[100*length(c)])/divnumber*1000; % distance inbetween dots
-  j:=0; % current path time (will be increased)
-  for k=1 upto (divnumber-1): 
-   % search for the pathtime j with the correct distance:
-   forever:
-    if (j>=100*length(c)) or 
-      ((ypart(arclengths[j])
-      +1000*xpart(arclengths[j]))>=k*divlength):
-      % check if j or j-1 is the closer index:
-      if abs(ypart(arclengths[j-1])
-      +1000*xpart(arclengths[j-1])-k*divlength)
-      <
-      abs((ypart(arclengths[j])
-      +1000*xpart(arclengths[j]))-k*divlength): 
-       j:=j-1;
-      fi
-      exitif 0=0; % exit anyway
-     fi
-    j:=j+1;
-   endfor
-   draw penpath shifted point (j/100) of c;
-  endfor
-  draw penpath shifted point length(c) of c;
- endgroup
-enddef;
-
-% dotdraw marks a path with approximately equally spaced dots
-% the vertices inbetween the starting and end vertices 
-% are hit exactly (in contrast to interdotdraw)
-def dotdraw expr c =
- begingroup
-  pickup pencircle scaled ptiny;
-  save arclengths,diameter,divlength,divnumber,j;
-  numeric diameter,divlength,divnumber,j;
-  pair arclengths[]; % needs to be in this format to avoid overflows
-  % note: the pair (11,500) means 11500
-  diameter:=max(px,py);
-  % draw first and last point:
-  draw penpath shifted point 0 of c;
-  % calculate the arclengths from the beginning to every 1/100-th part
-  % of a subpath, hence arclength[200] is the length of the subpath(0,2)
-  arclengths[0]:=(0,0);
-  for t=1 upto (100*length(c)):
-   arclengths[t]:=arclengths[t-1]
-    +(0,length((point ((t-1)/100) of c)-(point (t/100) of c)));
-   if ypart(arclengths[t])>1000:
-    arclengths[t]:=(xpart(arclengths[t])+1,ypart(arclengths[t])-1000);
-   fi
-  endfor
-  for i=1 upto length(c): % i is the subpath index
-   divnumber:=round(ypart(arclengths[100*i]-arclengths[100*(i-1)])/(dnum*diameter)
-   +xpart(arclengths[100*i]-arclengths[100*(i-1)])/(dnum*diameter)*1000); % number of points on one subpath
-   divlength:=ypart(arclengths[100*i]-arclengths[100*(i-1)])/divnumber
-   +xpart(arclengths[100*i]-arclengths[100*(i-1)])/divnumber*1000; % distance inbetween dots
-   j:=0; % current path time (will be increased)
-   for k=1 upto (divnumber-1): 
-    % search for the pathtime j with the correct distance:
-    forever:
-     if (j>=100*length(c)) or 
-      ((ypart(arclengths[j]-arclengths[100*(i-1)])
-      +1000*xpart(arclengths[j]-arclengths[100*(i-1)]))>=k*divlength):
-      % check if j or j-1 is the closer index:
-      if abs((ypart(arclengths[j-1]-arclengths[100*(i-1)])
-      +1000*xpart(arclengths[j-1]-arclengths[100*(i-1)]))-k*divlength)
-      <
-      abs((ypart(arclengths[j]-arclengths[100*(i-1)])
-      +1000*xpart(arclengths[j]-arclengths[100*(i-1)]))-k*divlength): 
-       j:=j-1;
-      fi
-      exitif 0=0; % exit anyway
-     fi
-     j:=j+1;
-    endfor
-    draw penpath shifted point (j/100) of c;
-   endfor
-   draw penpath shifted point i of c;
-  endfor
- endgroup
-enddef;
-
-beginchar("0",50u#,ht#,0);
+beginchar("zero",50u#,ht#,0);
 pickup cornerpen;
 x1=w;
 x2=x4=0.5w;
@@ -177,7 +13,7 @@ adjustwidth(xgap#,xgap#);
 penlabels(range 1 thru 150);
 endchar;
 
-beginchar("1",50u#,ht#,0);
+beginchar("one",50u#,ht#,0);
 pickup cornerpen;
 x1=x2=0.5w;
 x6=0.9w;
@@ -191,7 +27,7 @@ adjustwidth(xgap#,xgap#);
 penlabels(range 1 thru 150);
 endchar;
 
-beginchar("2",50u#,ht#,0);
+beginchar("two",50u#,ht#,0);
 pickup cornerpen;
 x2=x3=0;
 x5=x6=0.5w;
@@ -205,7 +41,7 @@ adjustwidth(xgap#,xgap#);
 penlabels(range 1 thru 150);
 endchar;
 
-beginchar("3",50u#,ht#,0);
+beginchar("three",50u#,ht#,0);
 pickup cornerpen;
 x1=x3=0;
 x4=x5=0.5w;
@@ -219,7 +55,7 @@ adjustwidth(xgap#,xgap#);
 penlabels(range 1 thru 150);
 endchar;
 
-beginchar("4",50u#,ht#,0);
+beginchar("four",50u#,ht#,0);
 pickup cornerpen;
 x1=0;
 x2=x3=x4=0.65w;
@@ -232,7 +68,7 @@ adjustwidth(xgap#,xgap#);
 penlabels(range 1 thru 150);
 endchar;
 
-beginchar("5",50u#,ht#,0);
+beginchar("five",50u#,ht#,0);
 pickup cornerpen;
 x1=x3=x7=0;
 x5=x4=0.5w;
@@ -248,7 +84,7 @@ adjustwidth(xgap#,xgap#);
 penlabels(range 1 thru 150);
 endchar;
 
-beginchar("6",50u#,ht#,0);
+beginchar("six",50u#,ht#,0);
 pickup cornerpen;
 x1=x7=0;
 x3=x5=x4=0.5w;
@@ -263,7 +99,7 @@ adjustwidth(xgap#,xgap#);
 penlabels(range 1 thru 150);
 endchar;
 
-beginchar("7",50u#,ht#,0);
+beginchar("seven",50u#,ht#,0);
 pickup cornerpen;
 x1=0;
 x2=w;
@@ -275,7 +111,7 @@ adjustwidth(xgap#,xgap#);
 penlabels(range 1 thru 150);
 endchar;
 
-beginchar("8",50u#,ht#,0);
+beginchar("eight",50u#,ht#,0);
 pickup cornerpen;
 x1=0;
 x7=0.1w;
@@ -293,7 +129,7 @@ adjustwidth(xgap#,xgap#);
 penlabels(range 1 thru 150);
 endchar;
 
-beginchar("9",50u#,ht#,0);
+beginchar("nine",50u#,ht#,0);
 pickup cornerpen;
 x1=x7=w;
 x3=x5=x4=0.5w;
@@ -307,6 +143,173 @@ dotdraw z6--z3{right}..z7{up}--z1{up}..z4{left}..z8{down}..z5{right}..z1;
 adjustwidth(xgap#,xgap#);
 penlabels(range 1 thru 150);
 endchar;
+
+% punctation
+
+beginchar("visiblespace",50u#,x_ht#,desc_depth#);
+pickup cornerpen;
+x1=x2=w-0.5px;
+x3=x4=0+0.5px;
+y1=y3=0;
+y2=y4=-0.5d;
+dotdraw z1--z2--z4--z3;
+adjustwidth(xgap#,xgap#);
+penlabels(range 1 thru 150);
+endchar;
+
+beginchar("period",50u#,x_ht#,desc_depth#);
+pickup cornerpen;
+x1=0.55w+px;
+x2=x4=0.5w;
+x3=0.45w-px;
+y2=0.05h+px;
+y1=y3=0;
+y4=-0.05h-px;
+dotdraw z1{up}..z2{left}..z3{down}..z4{right}..cycle;
+adjustwidth(xgap#,xgap#);
+penlabels(range 1 thru 150);
+endchar;
+
+beginchar("colon",50u#,x_ht#,desc_depth#);
+pickup cornerpen;
+x1=x5=0.55w+px;
+x2=x4=x6=x8=0.5w;
+x3=x7=0.45w-px;
+y2=0.05h+px;
+y1=y3=0;
+y4=-0.05h-px;
+y6=0.95h+0.5px;
+y5=y7=0.9h-0.5px;
+y8=0.85h-1.5px;
+dotdraw z1{up}..z2{left}..z3{down}..z4{right}..cycle;
+dotdraw z5{up}..z6{left}..z7{down}..z8{right}..cycle;
+adjustwidth(xgap#,xgap#);
+penlabels(range 1 thru 150);
+endchar;
+
+beginchar("comma",50u#,x_ht#,desc_depth#);
+pickup cornerpen;
+x1=0.55w+px;
+x2=x4=x5=0.5w;
+x3=0.45w-px;
+y2=0.05h+px;
+y1=y3=0;
+y4=-0.05h-px;
+y5=-0.75d;
+dotdraw z5..z1{up}..z2{left}..z3{down}..z4--z5;
+adjustwidth(xgap#,xgap#);
+penlabels(range 1 thru 150);
+endchar;
+
+beginchar("semicolon",50u#,x_ht#,desc_depth#);
+pickup cornerpen;
+x1=0.55w+px;
+x2=x4=x9=0.5w;
+x3=0.45w-px;
+x5=0.55w+px;
+x6=x8=0.5w;
+x7=0.45w-px;
+y2=0.05h+px;
+y1=y3=0;
+y4=-0.05h-px;
+y9=-0.75d;
+y6=0.95h+0.5px;
+y5=y7=0.9h-0.5px;
+y8=0.85h-1.5px;
+dotdraw z5{up}..z6{left}..z7{down}..z8{right}..cycle;
+dotdraw z9..z1{up}..z2{left}..z3{down}..z4--z9;
+adjustwidth(xgap#,xgap#);
+penlabels(range 1 thru 150);
+endchar;
+
+beginchar("exclam",50u#,ht#,desc_depth#);
+pickup cornerpen;
+x1=0.55w+px;
+x2=x4=x5=x6=0.5w;
+x3=0.45w-px;
+y2=0.05x_ht+px;
+y1=y3=0;
+y4=-0.055x_ht-px;
+y5=0.225h+px;
+top y6=h;
+dotdraw z1{up}..z2{left}..z3{down}..z4{right}..cycle;
+dotdraw z5--z6;
+adjustwidth(xgap#,xgap#);
+penlabels(range 1 thru 150);
+endchar;
+
+beginchar("question",50u#,ht#,desc_depth#);
+pickup cornerpen;
+x1=0.55w+px;
+x2=x4=x5=x6=x8=0.5w;
+x3=0.45w-px;
+x7=w;
+x9=0;
+y2=0.05x_ht+px;
+y1=y3=0;
+y4=-0.055x_ht-px;
+y5=0.225h+px;
+y6=0.5h;
+y7=y9=0.75h;
+top y8=h+o;
+dotdraw z1{up}..z2{left}..z3{down}..z4{right}..cycle;
+dotdraw z5--z6{right}..z7{up}..z8{left}..z9{down};
+adjustwidth(xgap#,xgap#);
+penlabels(range 1 thru 150);
+endchar;
+
+beginchar("hyphen",50u#,x_ht#,0);
+pickup cornerpen;
+x1=0.1w;
+x2=0.9w;
+y1=y2=0.7h;
+dotdraw z1--z2;
+adjustwidth(xgap#,xgap#);
+penlabels(range 1 thru 150);
+endchar;
+
+beginchar("emdash",50u#,x_ht#,0);
+pickup cornerpen;
+x1=0;
+x2=w;
+y1=y2=0.7h;
+dotdraw z1--z2;
+adjustwidth(xgap#,xgap#);
+penlabels(range 1 thru 150);
+endchar;
+
+beginchar("endash",50u#,x_ht#,0);
+pickup cornerpen;
+x1=0.1w;
+x2=0.9w;
+y1=y2=0.7h;
+dotdraw z1--z2;
+adjustwidth(xgap#,xgap#);
+penlabels(range 1 thru 150);
+endchar;
+
+beginchar("cwm",50u#,x_ht#,0);
+endchar;
+
+beginchar("ampersand",50u#,ht#,0);
+pickup cornerpen;
+x1=0;
+x7=0.1w;
+x3=x5=x4=0.5w;
+x8=w;
+x6=0.9w;
+bot y4=0-o;
+top y3=h+o;
+y6=y7=0.8h+0.5o;
+y5=0.6h;
+y1=y8=0.3h+0.5o;
+dotdraw z1{down}..z4{right}..z8{up}..z5{left}..z1;
+dotdraw z7{down}..z5{right}..z6{up}..z3{left}..z7;
+adjustwidth(xgap#,xgap#);
+penlabels(range 1 thru 150);
+endchar;
+
+% upper case
 
 beginchar("A",50u#,ht#,0);
 pickup cornerpen;
@@ -431,8 +434,8 @@ endchar;
 beginchar("I",50u#,ht#,0);
 pickup cornerpen;
 x1=x2=0.5w;
-x3=x5=0.2w;
-x4=x6=0.8w;
+x3=x5=0.1w;
+x4=x6=0.9w;
 bot y1=bot y5=bot y6=0;
 top y2=top y3=top y4=h;
 dotdraw z1--z2;
@@ -678,6 +681,8 @@ dotdraw z2--z4--z1--z3;
 adjustwidth(xgap#,xgap#);
 penlabels(range 1 thru 150);
 endchar;
+
+% lower case
 
 beginchar("a",50u#,x_ht#,0);
 pickup cornerpen;
