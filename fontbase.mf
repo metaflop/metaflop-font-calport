@@ -553,6 +553,154 @@ def enc(expr name)=
  fi
 enddef;
 
+% pen settings %
+path penpath;
+if penshape=1:
+ penpath=fullcircle xscaled px yscaled py rotated prot;
+ pickup pencircle xscaled px yscaled py rotated prot; 
+elseif penshape=2:
+ penpath=unitsquare shifted -(.5,.5) xscaled px yscaled py rotated prot;
+ pickup pensquare xscaled px yscaled py rotated prot; 
+elseif penshape=3:
+ penpath=unitsquare shifted -(.5,.5) xscaled px yscaled eps rotated prot;
+ pickup penrazor xscaled px rotated prot;
+elseif penshape=4:
+ penpath=((dir(-30)--dir(90)--dir(210)--cycle) xscaled .5px yscaled .5py rotated prot);
+ capsule_def(pentriangle) makepen(penpath);
+ pickup pentriangle;
+elseif penshape=5:
+ penpath=((dir(-54)--dir(18)--dir(90)--dir(162)--dir(234)--cycle) xscaled .5px yscaled .5py rotated prot);
+ capsule_def(penpentagon) makepen(penpath);
+ pickup penpentagon; 
+fi
+cornerpen:=savepen;
+
+def adjustwidth(expr left_adjustment,right_adjustment) = 
+ l:=-hround(left_adjustment*hppp);
+ interim xoffset:=-l; 
+ charwd:=charwd+left_adjustment+right_adjustment; 
+ r:=l+hround(charwd*hppp);
+ w:=r-hround(right_adjustment*hppp); 
+enddef;
+
+% interdotdraw marks a path with equally spaced dots
+% the vertices inbetween the starting and end vertices 
+% are generally not hit exactly (in contrast to dotdraw)
+def interdotdraw expr c =
+if drawingstyle=1:
+ pickup pencircle xscaled px yscaled py;
+ draw c;
+elseif drawingstyle=2:
+ begingroup
+  pickup pencircle scaled ptiny;
+  save arclengths,diameter,divlength,divnumber,j;
+  numeric diameter,divlength,divnumber,j;
+  pair arclengths[]; % needs to be in this format to avoid overflows
+  % note: the pair (11,500) means 11500
+  diameter:=max(px,py);
+  % draw first and last point:
+  draw penpath shifted point 0 of c;
+  % calculate the arclengths from the beginning to every 1/100-th part
+  % of a subpath, hence arclength[200] is the length of the subpath(0,2)
+  arclengths[0]:=(0,0);
+  for t=1 upto (100*length(c)):
+   arclengths[t]:=arclengths[t-1]
+    +(0,length((point ((t-1)/100) of c)-(point (t/100) of c)));
+   if ypart(arclengths[t])>1000:
+    arclengths[t]:=(xpart(arclengths[t])+1,ypart(arclengths[t])-1000);
+   fi
+  endfor
+  divnumber:=round(ypart(arclengths[100*length(c)])/(dnum*diameter)
+  +xpart(arclengths[100*length(c)])/(dnum*diameter)*1000); % number of points on one subpath
+  divlength:=ypart(arclengths[100*length(c)])/divnumber
+  +xpart(arclengths[100*length(c)])/divnumber*1000; % distance inbetween dots
+  j:=0; % current path time (will be increased)
+  for k=1 upto (divnumber-1): 
+   % search for the pathtime j with the correct distance:
+   forever:
+    if (j>=100*length(c)) or 
+      ((ypart(arclengths[j])
+      +1000*xpart(arclengths[j]))>=k*divlength):
+      % check if j or j-1 is the closer index:
+      if abs(ypart(arclengths[j-1])
+      +1000*xpart(arclengths[j-1])-k*divlength)
+      <
+      abs((ypart(arclengths[j])
+      +1000*xpart(arclengths[j]))-k*divlength): 
+       j:=j-1;
+      fi
+      exitif 0=0; % exit anyway
+     fi
+    j:=j+1;
+   endfor
+   draw penpath shifted point (j/100) of c;
+  endfor
+  draw penpath shifted point length(c) of c;
+ endgroup
+ elseif drawingstyle=3:
+ fi
+enddef;
+
+% dotdraw marks a path with approximately equally spaced dots
+% the vertices inbetween the starting and end vertices 
+% are hit exactly (in contrast to interdotdraw)
+def dotdraw expr c =
+if drawingstyle=1:
+ pickup pencircle xscaled px yscaled py;
+ draw c;
+elseif drawingstyle=2:
+ begingroup
+  pickup pencircle scaled ptiny;
+  save arclengths,diameter,divlength,divnumber,j;
+  numeric diameter,divlength,divnumber,j;
+  pair arclengths[]; % needs to be in this format to avoid overflows
+  % note: the pair (11,500) means 11500
+  diameter:=max(px,py);
+  % draw first and last point:
+  draw penpath shifted point 0 of c;
+  % calculate the arclengths from the beginning to every 1/100-th part
+  % of a subpath, hence arclength[200] is the length of the subpath(0,2)
+  arclengths[0]:=(0,0);
+  for t=1 upto (100*length(c)):
+   arclengths[t]:=arclengths[t-1]
+    +(0,length((point ((t-1)/100) of c)-(point (t/100) of c)));
+   if ypart(arclengths[t])>1000:
+    arclengths[t]:=(xpart(arclengths[t])+1,ypart(arclengths[t])-1000);
+   fi
+  endfor
+  for i=1 upto length(c): % i is the subpath index
+   divnumber:=round(ypart(arclengths[100*i]-arclengths[100*(i-1)])/(dnum*diameter)
+   +xpart(arclengths[100*i]-arclengths[100*(i-1)])/(dnum*diameter)*1000); % number of points on one subpath
+   divlength:=ypart(arclengths[100*i]-arclengths[100*(i-1)])/divnumber
+   +xpart(arclengths[100*i]-arclengths[100*(i-1)])/divnumber*1000; % distance inbetween dots
+   j:=0; % current path time (will be increased)
+   for k=1 upto (divnumber-1): 
+    % search for the pathtime j with the correct distance:
+    forever:
+     if (j>=100*length(c)) or 
+      ((ypart(arclengths[j]-arclengths[100*(i-1)])
+      +1000*xpart(arclengths[j]-arclengths[100*(i-1)]))>=k*divlength):
+      % check if j or j-1 is the closer index:
+      if abs((ypart(arclengths[j-1]-arclengths[100*(i-1)])
+      +1000*xpart(arclengths[j-1]-arclengths[100*(i-1)]))-k*divlength)
+      <
+      abs((ypart(arclengths[j]-arclengths[100*(i-1)])
+      +1000*xpart(arclengths[j]-arclengths[100*(i-1)]))-k*divlength): 
+       j:=j-1;
+      fi
+      exitif 0=0; % exit anyway
+     fi
+     j:=j+1;
+    endfor
+    draw penpath shifted point (j/100) of c;
+   endfor
+   draw penpath shifted point i of c;
+  endfor
+ endgroup
+ elseif drawingstyle=3:
+ fi
+enddef;
+
 %code_offset:=0; %later used for small caps
 
 numeric charwidths_[];
@@ -623,38 +771,6 @@ def ffmcopiedchar(expr namea,nameb) =
  charic:=charitalcorrs_[enc(nameb)]; 
  addto currentpicture also charpictures_[enc(nameb)];
  endchar;
-enddef;
-
-% an arc is kind of a quarter of a skewed superellipse
-vardef arc(expr zi,diri,zj,dirj) =
- zi{diri}...
- begingroup
-  save corner,zij; 
-  pair corner,zij;
-  corner=zi+whatever*diri=zj+whatever*dirj;
-  zij=zi
-   +superness*(corner-zi)
-   +(1-superness)*(zj-corner);
-  zij
- endgroup{zj-zi}
- ...zj{dirj}
-enddef;
-
-% two concatenated arcs
-def half(expr zi,diri,zj,dirj,zk,dirk) =
- arc(zi,diri,zj,dirj) 
- & arc(zj,dirj,zk,dirk)
-enddef;
-
-% two concatenated halfs
-def full(expr zi,diri,zj,dirj,zk,dirk,zl,dirl) =
- half(zi,diri,zj,dirj,zk,dirk)
- & half(zk,dirk,zl,dirl,zi,diri)
-enddef;
-
-% for dots...
-def dotcircle(expr zi,zj) =
- zi..zj..cycle & zi
 enddef;
 
 % kernings
@@ -761,142 +877,6 @@ def writeligtable = % write all kernings/ligatures at once
      ligmatrix_[i][n][0] kern ligmatrix_[i][n][1];
     fi
    fi
-  endfor
- endgroup
-enddef;
-
-% pen settings %
-path penpath;
-if penshape=1:
- penpath=fullcircle xscaled px yscaled py rotated prot;
- pickup pencircle xscaled px yscaled py rotated prot; 
-elseif penshape=2:
- penpath=unitsquare shifted -(.5,.5) xscaled px yscaled py rotated prot;
- pickup pensquare xscaled px yscaled py rotated prot; 
-elseif penshape=3:
- penpath=unitsquare shifted -(.5,.5) xscaled px yscaled eps rotated prot;
- pickup penrazor xscaled px rotated prot;
-elseif penshape=4:
- penpath=((dir(-30)--dir(90)--dir(210)--cycle) xscaled .5px yscaled .5py rotated prot);
- capsule_def(pentriangle) makepen(penpath);
- pickup pentriangle;
-elseif penshape=5:
- penpath=((dir(-54)--dir(18)--dir(90)--dir(162)--dir(234)--cycle) xscaled .5px yscaled .5py rotated prot);
- capsule_def(penpentagon) makepen(penpath);
- pickup penpentagon; 
-fi
-cornerpen:=savepen;
-
-def adjustwidth(expr left_adjustment,right_adjustment) = 
- l:=-hround(left_adjustment*hppp);
- interim xoffset:=-l; 
- charwd:=charwd+left_adjustment+right_adjustment; 
- r:=l+hround(charwd*hppp);
- w:=r-hround(right_adjustment*hppp); 
-enddef;
-
-% interdotdraw marks a path with equally spaced dots
-% the vertices inbetween the starting and end vertices 
-% are generally not hit exactly (in contrast to dotdraw)
-def interdotdraw expr c =
- begingroup
-  pickup pencircle scaled ptiny;
-  save arclengths,diameter,divlength,divnumber,j;
-  numeric diameter,divlength,divnumber,j;
-  pair arclengths[]; % needs to be in this format to avoid overflows
-  % note: the pair (11,500) means 11500
-  diameter:=max(px,py);
-  % draw first and last point:
-  draw penpath shifted point 0 of c;
-  % calculate the arclengths from the beginning to every 1/100-th part
-  % of a subpath, hence arclength[200] is the length of the subpath(0,2)
-  arclengths[0]:=(0,0);
-  for t=1 upto (100*length(c)):
-   arclengths[t]:=arclengths[t-1]
-    +(0,length((point ((t-1)/100) of c)-(point (t/100) of c)));
-   if ypart(arclengths[t])>1000:
-    arclengths[t]:=(xpart(arclengths[t])+1,ypart(arclengths[t])-1000);
-   fi
-  endfor
-  divnumber:=round(ypart(arclengths[100*length(c)])/(dnum*diameter)
-  +xpart(arclengths[100*length(c)])/(dnum*diameter)*1000); % number of points on one subpath
-  divlength:=ypart(arclengths[100*length(c)])/divnumber
-  +xpart(arclengths[100*length(c)])/divnumber*1000; % distance inbetween dots
-  j:=0; % current path time (will be increased)
-  for k=1 upto (divnumber-1): 
-   % search for the pathtime j with the correct distance:
-   forever:
-    if (j>=100*length(c)) or 
-      ((ypart(arclengths[j])
-      +1000*xpart(arclengths[j]))>=k*divlength):
-      % check if j or j-1 is the closer index:
-      if abs(ypart(arclengths[j-1])
-      +1000*xpart(arclengths[j-1])-k*divlength)
-      <
-      abs((ypart(arclengths[j])
-      +1000*xpart(arclengths[j]))-k*divlength): 
-       j:=j-1;
-      fi
-      exitif 0=0; % exit anyway
-     fi
-    j:=j+1;
-   endfor
-   draw penpath shifted point (j/100) of c;
-  endfor
-  draw penpath shifted point length(c) of c;
- endgroup
-enddef;
-
-% dotdraw marks a path with approximately equally spaced dots
-% the vertices inbetween the starting and end vertices 
-% are hit exactly (in contrast to interdotdraw)
-def dotdraw expr c =
- begingroup
-  pickup pencircle scaled ptiny;
-  save arclengths,diameter,divlength,divnumber,j;
-  numeric diameter,divlength,divnumber,j;
-  pair arclengths[]; % needs to be in this format to avoid overflows
-  % note: the pair (11,500) means 11500
-  diameter:=max(px,py);
-  % draw first and last point:
-  draw penpath shifted point 0 of c;
-  % calculate the arclengths from the beginning to every 1/100-th part
-  % of a subpath, hence arclength[200] is the length of the subpath(0,2)
-  arclengths[0]:=(0,0);
-  for t=1 upto (100*length(c)):
-   arclengths[t]:=arclengths[t-1]
-    +(0,length((point ((t-1)/100) of c)-(point (t/100) of c)));
-   if ypart(arclengths[t])>1000:
-    arclengths[t]:=(xpart(arclengths[t])+1,ypart(arclengths[t])-1000);
-   fi
-  endfor
-  for i=1 upto length(c): % i is the subpath index
-   divnumber:=round(ypart(arclengths[100*i]-arclengths[100*(i-1)])/(dnum*diameter)
-   +xpart(arclengths[100*i]-arclengths[100*(i-1)])/(dnum*diameter)*1000); % number of points on one subpath
-   divlength:=ypart(arclengths[100*i]-arclengths[100*(i-1)])/divnumber
-   +xpart(arclengths[100*i]-arclengths[100*(i-1)])/divnumber*1000; % distance inbetween dots
-   j:=0; % current path time (will be increased)
-   for k=1 upto (divnumber-1): 
-    % search for the pathtime j with the correct distance:
-    forever:
-     if (j>=100*length(c)) or 
-      ((ypart(arclengths[j]-arclengths[100*(i-1)])
-      +1000*xpart(arclengths[j]-arclengths[100*(i-1)]))>=k*divlength):
-      % check if j or j-1 is the closer index:
-      if abs((ypart(arclengths[j-1]-arclengths[100*(i-1)])
-      +1000*xpart(arclengths[j-1]-arclengths[100*(i-1)]))-k*divlength)
-      <
-      abs((ypart(arclengths[j]-arclengths[100*(i-1)])
-      +1000*xpart(arclengths[j]-arclengths[100*(i-1)]))-k*divlength): 
-       j:=j-1;
-      fi
-      exitif 0=0; % exit anyway
-     fi
-     j:=j+1;
-    endfor
-    draw penpath shifted point (j/100) of c;
-   endfor
-   draw penpath shifted point i of c;
   endfor
  endgroup
 enddef;
