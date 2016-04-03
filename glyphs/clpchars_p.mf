@@ -1,6 +1,6 @@
 % numbers
 
-beginchar("zero",50u#,ht#,0);
+beginchar("zero",45u#,ht#,0);
 pickup cornerpen;
 x1=w;
 x2=x4=0.5w;
@@ -13,7 +13,7 @@ adjustwidth(xgap#,xgap#);
 penlabels(range 1 thru 150);
 endchar;
 
-beginchar("one",50u#,ht#,0);
+beginchar("one",45u#,ht#,0);
 pickup cornerpen;
 x1=x2=0.5w;
 x6=0.9w;
@@ -27,7 +27,7 @@ adjustwidth(xgap#,xgap#);
 penlabels(range 1 thru 150);
 endchar;
 
-beginchar("two",50u#,ht#,0);
+beginchar("two",45u#,ht#,0);
 pickup cornerpen;
 x2=x3=0;
 x5=x6=0.5w;
@@ -35,27 +35,29 @@ x4=x7=w;
 bot y3=bot y4=0;
 top y6=h+o;
 y5=0.5h;
-y2=y7=0.75h;
-interdotdraw z2{up}..z6{right}..z7{down}..z5{left}..z3{down}--z4;
+y2=y7=0.7h+0.5o;
+interdotdraw z2{up}..z6{right}..z7{down}..z3{down}--z4;
 adjustwidth(xgap#,xgap#);
 penlabels(range 1 thru 150);
 endchar;
 
-beginchar("three",50u#,ht#,0);
+beginchar("three",45u#,ht#,0);
 pickup cornerpen;
-x1=x3=0;
+x1=0;
+x3=0+0.5px;
 x4=x5=0.5w;
-x6=x8=w;
+x8=w;
+x6=w-0.5px;
 bot y4=0-o;
 top y3=top y6=h;
 y5=0.6h;
-y1=y8=0.3h;
+y1=y8=0.3h+0.25px-0.5o;
 dotdraw z3--z6--z5{right}..z8{down}..z4{left}..z1{up};
 adjustwidth(xgap#,xgap#);
 penlabels(range 1 thru 150);
 endchar;
 
-beginchar("four",50u#,ht#,0);
+beginchar("four",45u#,ht#,0);
 pickup cornerpen;
 x1=0;
 x2=x3=x4=0.65w;
@@ -68,39 +70,44 @@ adjustwidth(xgap#,xgap#);
 penlabels(range 1 thru 150);
 endchar;
 
-beginchar("five",50u#,ht#,0);
+beginchar("five",45u#,ht#,0);
 pickup cornerpen;
-x1=x3=x7=0;
+x1=0;
+x3=x7=0+0.5px;
 x5=x4=0.5w;
-x6=x8=w;
+x8=w;
+x6=w-0.5px;
 bot y4=0-o;
 top y3=top y6=h;
 y5=0.65h;
 y7=0.55h;
-y1=y8=0.325h;
+y1=y8=0.325h+0.25px-0.5o;
 dotdraw z6--z3--z7..z5{right}..z8{down}..z4{left}..z1{up};
 adjustwidth(xgap#,xgap#);
 penlabels(range 1 thru 150);
 endchar;
 
-beginchar("six",50u#,ht#,0);
+beginchar("six",45u#,ht#,0);
 pickup cornerpen;
 x1=x7=0;
 x3=x5=x4=0.5w;
-x6=x8=w;
+x8=w;
+x6=w-0.5px;
 bot y4=0-o;
-top y3=top y6=h;
-y5=y7=0.65h;
-y1=y8=0.35h;
-dotdraw z6--z3{left}..z7{down}--z1{down}..z4{right}..z8{up}..z5{left}..z1{down};
+top y3=h+o;
+y6=0.85h;
+y5=0.65h;
+y7=0.55h;
+y1=y8=0.325h+0.25px-0.5o;
+dotdraw z6..z3{left}..z7{down}--z1{down}..z4{right}..z8{up}..z5{left}..z1{down};
 adjustwidth(xgap#,xgap#);
 penlabels(range 1 thru 150);
 endchar;
 
-beginchar("seven",50u#,ht#,0);
+beginchar("seven",45u#,ht#,0);
 pickup cornerpen;
-x1=0;
-x2=w;
+x1=0+0.5px;
+x2=w-0.5px;
 x3=0.25w;
 bot y3=0;
 top y1=top y2=h;
@@ -109,7 +116,7 @@ adjustwidth(xgap#,xgap#);
 penlabels(range 1 thru 150);
 endchar;
 
-beginchar("eight",50u#,ht#,0);
+beginchar("eight",45u#,ht#,0);
 pickup cornerpen;
 x1=0;
 x7=0.1w;
@@ -117,33 +124,36 @@ x3=x5=x4=0.5w;
 x8=w;
 x6=0.9w;
 bot y4=0-o;
+y1=y8=0.3h+0.25px-0.5o;
 top y3=h+o;
-y6=y7=0.8h-0.5o;
+y6=y7=0.8h-0.25px+0.5o;
 y5=0.6h;
-y1=y8=0.3h+0.5o;
 dotdraw z1{down}..z4{right}..z8{up}..z5{left}..cycle;
 dotdraw z7{down}..z5{right}..z6{up}..z3{left}..cycle;
 adjustwidth(xgap#,xgap#);
 penlabels(range 1 thru 150);
 endchar;
 
-beginchar("nine",50u#,ht#,0);
+beginchar("nine",45u#,ht#,0);
 pickup cornerpen;
 x1=x7=w;
 x3=x5=x4=0.5w;
-x6=x8=0;
+x8=0;
+x6=0+0.5px;
 top y4=h+o;
-bot y3=bot y6=0;
-y5=y7=0.35h;
-y1=y8=0.65h;
-dotdraw z6--z3{right}..z7{up}--z1{up}..z4{left}..z8{down}..z5{right}..z1{up};
+bot y3=0-o;
+y6=0.15h;
+y5=0.35h;
+y7=0.45h;
+y1=y8=0.675h-0.25px+0.5o;
+dotdraw z6..z3{right}..z7{up}--z1{up}..z4{left}..z8{down}..z5{right}..z1{up};
 adjustwidth(xgap#,xgap#);
 penlabels(range 1 thru 150);
 endchar;
 
 % punctation
 
-beginchar("visiblespace",50u#,x_ht#,desc_depth#);
+beginchar("visiblespace",45u#,x_ht#,desc_depth#);
 pickup cornerpen;
 x1=x2=w-0.5px;
 x3=x4=0+0.5px;
@@ -154,7 +164,7 @@ adjustwidth(xgap#,xgap#);
 penlabels(range 1 thru 150);
 endchar;
 
-beginchar("period",50u#,x_ht#,desc_depth#);
+beginchar("period",45u#,x_ht#,desc_depth#);
 pickup cornerpen;
 x1=0.55w+px;
 x2=x4=0.5w;
@@ -167,7 +177,7 @@ adjustwidth(xgap#,xgap#);
 penlabels(range 1 thru 150);
 endchar;
 
-beginchar("colon",50u#,x_ht#,desc_depth#);
+beginchar("colon",45u#,x_ht#,desc_depth#);
 pickup cornerpen;
 x1=x5=0.55w+px;
 x2=x4=x6=x8=0.5w;
@@ -184,7 +194,7 @@ adjustwidth(xgap#,xgap#);
 penlabels(range 1 thru 150);
 endchar;
 
-beginchar("comma",50u#,x_ht#,desc_depth#);
+beginchar("comma",45u#,x_ht#,desc_depth#);
 pickup cornerpen;
 x1=0.55w+px;
 x2=x4=x5=0.5w;
@@ -198,7 +208,7 @@ adjustwidth(xgap#,xgap#);
 penlabels(range 1 thru 150);
 endchar;
 
-beginchar("semicolon",50u#,x_ht#,desc_depth#);
+beginchar("semicolon",45u#,x_ht#,desc_depth#);
 pickup cornerpen;
 x1=0.55w+px;
 x2=x4=x9=0.5w;
@@ -219,7 +229,7 @@ adjustwidth(xgap#,xgap#);
 penlabels(range 1 thru 150);
 endchar;
 
-beginchar("exclam",50u#,ht#,desc_depth#);
+beginchar("exclam",45u#,ht#,desc_depth#);
 pickup cornerpen;
 x1=0.55w+px;
 x2=x4=x5=x6=0.5w;
@@ -235,7 +245,7 @@ adjustwidth(xgap#,xgap#);
 penlabels(range 1 thru 150);
 endchar;
 
-beginchar("question",50u#,ht#,desc_depth#);
+beginchar("question",45u#,ht#,desc_depth#);
 pickup cornerpen;
 x1=0.55w+px;
 x2=x4=x5=x6=x8=0.5w;
@@ -246,8 +256,8 @@ y2=0.05x_ht+px;
 y1=y3=0;
 y4=-0.055x_ht-px;
 y5=0.225h+px;
-y6=0.5h;
-y7=y9=0.75h;
+y6=0.45h;
+y7=y9=0.725h-0.25px+0.5o;
 top y8=h+o;
 dotdraw z1{up}..z2{left}..z3{down}..z4{right}..cycle;
 dotdraw z5--z6{right}..z7{up}..z8{left}..z9{down};
@@ -255,7 +265,7 @@ adjustwidth(xgap#,xgap#);
 penlabels(range 1 thru 150);
 endchar;
 
-beginchar("hyphen",50u#,x_ht#,0);
+beginchar("hyphen",45u#,x_ht#,0);
 pickup cornerpen;
 x1=0.1w;
 x2=0.9w;
@@ -265,7 +275,7 @@ adjustwidth(xgap#,xgap#);
 penlabels(range 1 thru 150);
 endchar;
 
-beginchar("emdash",50u#,x_ht#,0);
+beginchar("emdash",45u#,x_ht#,0);
 pickup cornerpen;
 x1=0;
 x2=w;
@@ -275,7 +285,7 @@ adjustwidth(xgap#,xgap#);
 penlabels(range 1 thru 150);
 endchar;
 
-beginchar("endash",50u#,x_ht#,0);
+beginchar("endash",45u#,x_ht#,0);
 pickup cornerpen;
 x1=0.1w;
 x2=0.9w;
@@ -285,10 +295,10 @@ adjustwidth(xgap#,xgap#);
 penlabels(range 1 thru 150);
 endchar;
 
-beginchar("cwm",50u#,x_ht#,0);
+beginchar("cwm",45u#,x_ht#,0);
 endchar;
 
-beginchar("ampersand",50u#,ht#,0);
+beginchar("ampersand",45u#,ht#,0);
 pickup cornerpen;
 x1=0;
 x7=0.1w;
@@ -308,7 +318,7 @@ endchar;
 
 % upper case
 
-beginchar("A",50u#,ht#,0);
+beginchar("A",45u#,ht#,0);
 pickup cornerpen;
 x1=0;
 x2=0.5w;
@@ -324,24 +334,23 @@ adjustwidth(xgap#,xgap#);
 penlabels(range 1 thru 150);
 endchar;
 
-beginchar("B",50u#,ht#,0);
+beginchar("B",45u#,ht#,0);
 pickup cornerpen;
 x1=x2=x3=0+0.5px;
-x4=x6=0.6w;
-x5=0.4w;
+x4=x5=x6=0.55w;
 x7=x8=w;
 bot y1=bot y4=0;
 top y3=top y6=h;
 y2=y5=0.55h;
-y7=0.775h;
-y8=0.275h;
+y7=0.775h-0.25px;
+y8=0.275h+0.25px;
 dotdraw z4--z1--z2--z3--z6{right}..z7{down}..z5{left}--z2;
 dotdraw z5{right}..z8{down}..z4{left};
 adjustwidth(xgap#,xgap#);
 penlabels(range 1 thru 150);
 endchar;
 
-beginchar("C",50u#,ht#,0);
+beginchar("C",45u#,ht#,0);
 pickup cornerpen;
 x1=x5=w;
 x2=x4=0.5w;
@@ -356,7 +365,7 @@ adjustwidth(xgap#,xgap#);
 penlabels(range 1 thru 150);
 endchar;
 
-beginchar("D",50u#,ht#,0);
+beginchar("D",45u#,ht#,0);
 pickup cornerpen;
 x1=x2=0+0.5px;
 x3=x4=0.4w;
@@ -369,7 +378,7 @@ adjustwidth(xgap#,xgap#);
 penlabels(range 1 thru 150);
 endchar;
 
-beginchar("E",50u#,ht#,0);
+beginchar("E",45u#,ht#,0);
 pickup cornerpen;
 x1=x2=x5=0+0.5px;
 x3=x4=w;
@@ -383,7 +392,7 @@ adjustwidth(xgap#,xgap#);
 penlabels(range 1 thru 150);
 endchar;
 
-beginchar("F",50u#,ht#,0);
+beginchar("F",45u#,ht#,0);
 pickup cornerpen;
 x1=x2=x5=0+0.5px;
 x4=w;
@@ -397,7 +406,7 @@ adjustwidth(xgap#,xgap#);
 penlabels(range 1 thru 150);
 endchar;
 
-beginchar("G",50u#,ht#,0);
+beginchar("G",45u#,ht#,0);
 pickup cornerpen;
 x1=x5=x6=w;
 x2=x4=0.5w;
@@ -414,7 +423,7 @@ adjustwidth(xgap#,xgap#);
 penlabels(range 1 thru 150);
 endchar;
 
-beginchar("H",50u#,ht#,0);
+beginchar("H",45u#,ht#,0);
 pickup cornerpen;
 x1=x2=x5=0+0.5px;
 x3=x4=x6=w-0.5px;
@@ -428,7 +437,7 @@ adjustwidth(xgap#,xgap#);
 penlabels(range 1 thru 150);
 endchar;
 
-beginchar("I",50u#,ht#,0);
+beginchar("I",45u#,ht#,0);
 pickup cornerpen;
 x1=x2=0.5w;
 x3=x5=0.1w;
@@ -442,7 +451,7 @@ adjustwidth(xgap#,xgap#);
 penlabels(range 1 thru 150);
 endchar;
 
-beginchar("J",50u#,ht#,0);
+beginchar("J",45u#,ht#,0);
 pickup cornerpen;
 x2=x5=0;
 x4=0.5w;
@@ -456,7 +465,7 @@ adjustwidth(xgap#,xgap#);
 penlabels(range 1 thru 150);
 endchar;
 
-beginchar("K",50u#,ht#,0);
+beginchar("K",45u#,ht#,0);
 pickup cornerpen;
 x1=x2=x4=0+0.5px;
 x3=x5=w;
@@ -472,7 +481,7 @@ adjustwidth(xgap#,xgap#);
 penlabels(range 1 thru 150);
 endchar;
 
-beginchar("L",50u#,ht#,0);
+beginchar("L",45u#,ht#,0);
 pickup cornerpen;
 x1=x2=0+0.5px;
 x3=w-0.5px;
@@ -483,7 +492,7 @@ adjustwidth(xgap#,xgap#);
 penlabels(range 1 thru 150);
 endchar;
 
-beginchar("M",50u#,ht#,0);
+beginchar("M",45u#,ht#,0);
 pickup cornerpen;
 x1=x2=0+0.5px;
 x3=x4=w-0.5px;
@@ -496,7 +505,7 @@ adjustwidth(xgap#,xgap#);
 penlabels(range 1 thru 150);
 endchar;
 
-beginchar("N",50u#,ht#,0);
+beginchar("N",45u#,ht#,0);
 pickup cornerpen;
 x1=x2=0+0.5px;
 x3=x4=w-0.5px;
@@ -507,7 +516,7 @@ adjustwidth(xgap#,xgap#);
 penlabels(range 1 thru 150);
 endchar;
 
-beginchar("O",50u#,ht#,0);
+beginchar("O",45u#,ht#,0);
 pickup cornerpen;
 x1=w;
 x2=x4=0.5w;
@@ -520,7 +529,7 @@ adjustwidth(xgap#,xgap#);
 penlabels(range 1 thru 150);
 endchar;
 
-beginchar("P",50u#,ht#,0);
+beginchar("P",45u#,ht#,0);
 pickup cornerpen;
 x1=x2=x3=0+0.5px;
 x5=x6=0.6w;
@@ -534,7 +543,7 @@ adjustwidth(xgap#,xgap#);
 penlabels(range 1 thru 150);
 endchar;
 
-beginchar("Q",50u#,ht#,0);
+beginchar("Q",45u#,ht#,0);
 pickup cornerpen;
 x1=w;
 x2=x4=0.5w;
@@ -553,7 +562,7 @@ adjustwidth(xgap#,xgap#);
 penlabels(range 1 thru 150);
 endchar;
 
-beginchar("R",50u#,ht#,0);
+beginchar("R",45u#,ht#,0);
 pickup cornerpen;
 x1=x2=x3=0+0.5px;
 x5=x6=0.6w;
@@ -568,7 +577,7 @@ adjustwidth(xgap#,xgap#);
 penlabels(range 1 thru 150);
 endchar;
 
-beginchar("S",50u#,ht#,0);
+beginchar("S",45u#,ht#,0);
 pickup cornerpen;
 x1=x2=0;
 x3=x5=x6=0.5w;
@@ -583,7 +592,7 @@ adjustwidth(xgap#,xgap#);
 penlabels(range 1 thru 150);
 endchar;
 
-beginchar("T",50u#,ht#,0);
+beginchar("T",45u#,ht#,0);
 pickup cornerpen;
 x1=x2=0.5w;
 x3=0;
@@ -596,7 +605,7 @@ adjustwidth(xgap#,xgap#);
 penlabels(range 1 thru 150);
 endchar;
 
-beginchar("U",50u#,ht#,0);
+beginchar("U",45u#,ht#,0);
 pickup cornerpen;
 x1=x2=0+0.5px;
 x3=0.5w;
@@ -609,7 +618,7 @@ adjustwidth(xgap#,xgap#);
 penlabels(range 1 thru 150);
 endchar;
 
-beginchar("V",50u#,ht#,0);
+beginchar("V",45u#,ht#,0);
 pickup cornerpen;
 x1=0;
 x3=0.5w;
@@ -621,7 +630,7 @@ adjustwidth(xgap#,xgap#);
 penlabels(range 1 thru 150);
 endchar;
 
-beginchar("W",50u#,ht#,0);
+beginchar("W",45u#,ht#,0);
 pickup cornerpen;
 x2=0;
 x1=0.25w;
@@ -636,7 +645,7 @@ adjustwidth(xgap#,xgap#);
 penlabels(range 1 thru 150);
 endchar;
 
-beginchar("X",50u#,ht#,0);
+beginchar("X",45u#,ht#,0);
 pickup cornerpen;
 x1=0;
 x2=0+0.5px;
@@ -652,7 +661,7 @@ adjustwidth(xgap#,xgap#);
 penlabels(range 1 thru 150);
 endchar;
 
-beginchar("Y",50u#,ht#,0);
+beginchar("Y",45u#,ht#,0);
 pickup cornerpen;
 x2=0;
 x4=w;
@@ -666,7 +675,7 @@ adjustwidth(xgap#,xgap#);
 penlabels(range 1 thru 150);
 endchar;
 
-beginchar("Z",50u#,ht#,0);
+beginchar("Z",45u#,ht#,0);
 pickup cornerpen;
 x1=x2=0;
 x3=x4=w;
@@ -681,7 +690,7 @@ endchar;
 
 % lower case
 
-beginchar("a",50u#,x_ht#,0);
+beginchar("a",45u#,x_ht#,0);
 pickup cornerpen;
 x1=x2=x4=w-0.5px;
 x3=x5=0.5w;
@@ -697,7 +706,7 @@ adjustwidth(xgap#,xgap#);
 penlabels(range 1 thru 150);
 endchar;
 
-beginchar("b",50u#,ht#,0);
+beginchar("b",45u#,ht#,0);
 pickup cornerpen;
 x4=w;
 x3=x5=0.5w;
@@ -713,7 +722,7 @@ adjustwidth(xgap#,xgap#);
 penlabels(range 1 thru 150);
 endchar;
 
-beginchar("c",50u#,x_ht#,0);
+beginchar("c",45u#,x_ht#,0);
 pickup cornerpen;
 x1=x5=w;
 x2=x4=0.5w;
@@ -728,7 +737,7 @@ adjustwidth(xgap#,xgap#);
 penlabels(range 1 thru 150);
 endchar;
 
-beginchar("d",50u#,ht#,0);
+beginchar("d",45u#,ht#,0);
 pickup cornerpen;
 x1=x2=x4=w-0.5px;
 x3=x5=0.5w;
@@ -744,7 +753,7 @@ adjustwidth(xgap#,xgap#);
 penlabels(range 1 thru 150);
 endchar;
 
-beginchar("e",50u#,x_ht#,0);
+beginchar("e",45u#,x_ht#,0);
 pickup cornerpen;
 x1=x5=w;
 x2=x4=0.5w;
@@ -758,7 +767,7 @@ adjustwidth(xgap#,xgap#);
 penlabels(range 1 thru 150);
 endchar;
 
-beginchar("f",50u#,ht#,0);
+beginchar("f",45u#,ht#,0);
 pickup cornerpen;
 x5=0;
 x1=x2=0.4w;
@@ -775,7 +784,7 @@ adjustwidth(xgap#,xgap#);
 penlabels(range 1 thru 150);
 endchar;
 
-beginchar("g",50u#,x_ht#,desc_depth#);
+beginchar("g",45u#,x_ht#,desc_depth#);
 pickup cornerpen;
 x1=x2=x4=w-0.5px;
 x3=x5=x7=0.5w;
@@ -793,7 +802,7 @@ adjustwidth(xgap#,xgap#);
 penlabels(range 1 thru 150);
 endchar;
 
-beginchar("h",50u#,ht#,0);
+beginchar("h",45u#,ht#,0);
 pickup cornerpen;
 x4=x5=w-0.5px;
 x3=0.5w;
@@ -809,7 +818,7 @@ adjustwidth(xgap#,xgap#);
 penlabels(range 1 thru 150);
 endchar;
 
-beginchar("i",50u#,ht#,0);
+beginchar("i",45u#,ht#,0);
 pickup cornerpen;
 x3=x5=0.1w;
 x1=x2=x4=0.5w;
@@ -824,7 +833,7 @@ adjustwidth(xgap#,xgap#);
 penlabels(range 1 thru 150);
 endchar;
 
-beginchar("j",50u#,ht#,desc_depth#);
+beginchar("j",45u#,ht#,desc_depth#);
 pickup cornerpen;
 x1=x2=x3=x4=0.9w-0.5px;
 x5=x7=0.5w;
@@ -839,7 +848,7 @@ adjustwidth(xgap#,xgap#);
 penlabels(range 1 thru 150);
 endchar;
 
-beginchar("k",50u#,ht#,0);
+beginchar("k",45u#,ht#,0);
 pickup cornerpen;
 x3=x5=w;
 x1=x2=x6=0+0.5px;
@@ -856,7 +865,7 @@ adjustwidth(xgap#,xgap#);
 penlabels(range 1 thru 150);
 endchar;
 
-beginchar("l",50u#,ht#,0);
+beginchar("l",45u#,ht#,0);
 pickup cornerpen;
 x1=x2=0.5w;
 x3=x5=0.1w+0.5px;
@@ -869,7 +878,7 @@ adjustwidth(xgap#,xgap#);
 penlabels(range 1 thru 150);
 endchar;
 
-beginchar("m",50u#,x_ht#,0);
+beginchar("m",45u#,x_ht#,0);
 pickup cornerpen;
 x4=x5=0.5w;
 x3=0.25w;
@@ -886,7 +895,7 @@ adjustwidth(xgap#,xgap#);
 penlabels(range 1 thru 150);
 endchar;
 
-beginchar("n",50u#,x_ht#,0);
+beginchar("n",45u#,x_ht#,0);
 pickup cornerpen;
 x4=x5=w-0.5px;
 x3=0.5w;
@@ -900,7 +909,7 @@ adjustwidth(xgap#,xgap#);
 penlabels(range 1 thru 150);
 endchar;
 
-beginchar("o",50u#,x_ht#,0);
+beginchar("o",45u#,x_ht#,0);
 pickup cornerpen;
 x1=w;
 x2=x4=0.5w;
@@ -913,7 +922,7 @@ adjustwidth(xgap#,xgap#);
 penlabels(range 1 thru 150);
 endchar;
 
-beginchar("p",50u#,x_ht#,desc_depth#);
+beginchar("p",45u#,x_ht#,desc_depth#);
 pickup cornerpen;
 x4=w;
 x3=x5=0.5w;
@@ -929,7 +938,7 @@ adjustwidth(xgap#,xgap#);
 penlabels(range 1 thru 150);
 endchar;
 
-beginchar("q",50u#,x_ht#,desc_depth#);
+beginchar("q",45u#,x_ht#,desc_depth#);
 pickup cornerpen;
 x1=x2=x4=w-0.5px;
 x3=x5=0.5w;
@@ -945,7 +954,7 @@ adjustwidth(xgap#,xgap#);
 penlabels(range 1 thru 150);
 endchar;
 
-beginchar("r",50u#,x_ht#,0);
+beginchar("r",45u#,x_ht#,0);
 pickup cornerpen;
 x3=0.5w;
 x5=w-0.5px;
@@ -960,7 +969,7 @@ adjustwidth(xgap#,xgap#);
 penlabels(range 1 thru 150);
 endchar;
 
-beginchar("s",50u#,x_ht#,0);
+beginchar("s",45u#,x_ht#,0);
 pickup cornerpen;
 x1=x2=0+0.5px;
 x3=x5=x6=0.5w;
@@ -975,7 +984,7 @@ adjustwidth(xgap#,xgap#);
 penlabels(range 1 thru 150);
 endchar;
 
-beginchar("t",50u#,ht#,0);
+beginchar("t",45u#,ht#,0);
 pickup cornerpen;
 x2=x3=x4=0.4w;
 x5=0;
@@ -992,7 +1001,7 @@ adjustwidth(xgap#,xgap#);
 penlabels(range 1 thru 150);
 endchar;
 
-beginchar("u",50u#,x_ht#,0);
+beginchar("u",45u#,x_ht#,0);
 pickup cornerpen;
 x1=x2=0+0.5px;
 x3=0.5w;
@@ -1007,7 +1016,7 @@ adjustwidth(xgap#,xgap#);
 penlabels(range 1 thru 150);
 endchar;
 
-beginchar("v",50u#,x_ht#,0);
+beginchar("v",45u#,x_ht#,0);
 pickup cornerpen;
 x1=0;
 x3=0.5w;
@@ -1019,7 +1028,7 @@ adjustwidth(xgap#,xgap#);
 penlabels(range 1 thru 150);
 endchar;
 
-beginchar("w",50u#,x_ht#,0);
+beginchar("w",45u#,x_ht#,0);
 pickup cornerpen;
 x2=0;
 x1=0.25w;
@@ -1034,7 +1043,7 @@ adjustwidth(xgap#,xgap#);
 penlabels(range 1 thru 150);
 endchar;
 
-beginchar("x",50u#,x_ht#,0);
+beginchar("x",45u#,x_ht#,0);
 pickup cornerpen;
 x1=0;
 x2=0.1w;
@@ -1050,7 +1059,7 @@ adjustwidth(xgap#,xgap#);
 penlabels(range 1 thru 150);
 endchar;
 
-beginchar("y",50u#,x_ht#,desc_depth#);
+beginchar("y",45u#,x_ht#,desc_depth#);
 pickup cornerpen;
 x2=x6=w;
 x1=0.5w;
@@ -1069,7 +1078,7 @@ adjustwidth(xgap#,xgap#);
 penlabels(range 1 thru 150);
 endchar;
 
-beginchar("z",50u#,x_ht#,0);
+beginchar("z",45u#,x_ht#,0);
 pickup cornerpen;
 x1=x2=0;
 x3=x4=w;
