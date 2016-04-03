@@ -37,7 +37,7 @@ ptiny#:=.05*min(px#,py#);   % tiny pen width for pen outline @hidden
 o#:=.2*(px#*cosd(prot))++(py#*sind(prot)); % overshoot       @hidden
 slant:=0;                   % slanting amount                $ -0.3 / 0.3
 font_normal_space 20u#;     % width of the space char		 @hidden
-dnum:=1.5;                  % number of dots                 $ 0.1 / 3
+dnum:=0.5;                  % number of dots                 $ 0.1 / 3
 drawingstyle:=1;            % 1=line / 2=dots / 3=overdraw
 penshape:=1;                % 1=circle / 2=square / 3=razor / 4=triangle / 5=pentagon
 

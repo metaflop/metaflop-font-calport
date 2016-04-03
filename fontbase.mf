@@ -583,6 +583,15 @@ def adjustwidth(expr left_adjustment,right_adjustment) =
  w:=r-hround(right_adjustment*hppp); 
 enddef;
 
+def overdraw expr c = erase fill c; draw c enddef;
+
+def overdrawsupreme expr c = begingroup
+ picture region; region := nullpicture;
+ interim turningcheck := 0; addto region contour c;
+ cull region dropping (0,0);
+ cullit; addto currentpicture also -region ; cullit;
+ draw c endgroup enddef;
+
 % interdotdraw marks a path with equally spaced dots
 % the vertices inbetween the starting and end vertices 
 % are generally not hit exactly (in contrast to dotdraw)
@@ -590,16 +599,18 @@ def interdotdraw expr c =
 if drawingstyle=1:
  pickup pencircle xscaled px yscaled py;
  draw c;
-elseif drawingstyle=2:
+elseif (drawingstyle=2) or (drawingstyle=3):
  begingroup
   pickup pencircle scaled ptiny;
-  save arclengths,diameter,divlength,divnumber,j;
+  save arclengths,diameter,divlength,divnumber,j,hastostop;
   numeric diameter,divlength,divnumber,j;
+  boolean hastostop;
   pair arclengths[]; % needs to be in this format to avoid overflows
   % note: the pair (11,500) means 11500
   diameter:=max(px,py);
-  % draw first and last point:
-  draw penpath shifted point 0 of c;
+  % draw first point:
+  if drawingstyle=3: overdraw else draw fi
+   penpath shifted point 0 of c;
   % calculate the arclengths from the beginning to every 1/100-th part
   % of a subpath, hence arclength[200] is the length of the subpath(0,2)
   arclengths[0]:=(0,0);
@@ -617,6 +628,7 @@ elseif drawingstyle=2:
   j:=0; % current path time (will be increased)
   for k=1 upto (divnumber-1): 
    % search for the pathtime j with the correct distance:
+   hastostop:=false; % condition for the forever-loop
    forever:
     if (j>=100*length(c)) or 
       ((ypart(arclengths[j])
@@ -629,16 +641,18 @@ elseif drawingstyle=2:
       +1000*xpart(arclengths[j]))-k*divlength): 
        j:=j-1;
       fi
-      exitif 0=0; % exit anyway
+      hastostop:=true;
      fi
+    exitif hastostop;
     j:=j+1;
    endfor
-   draw penpath shifted point (j/100) of c;
+   if drawingstyle=3: overdraw else draw fi
+    penpath shifted point (j/100) of c;
   endfor
-  draw penpath shifted point length(c) of c;
+  if drawingstyle=3: overdraw else draw fi
+   penpath shifted point length(c) of c;
  endgroup
- elseif drawingstyle=3:
- fi
+fi
 enddef;
 
 % dotdraw marks a path with approximately equally spaced dots
@@ -648,16 +662,18 @@ def dotdraw expr c =
 if drawingstyle=1:
  pickup pencircle xscaled px yscaled py;
  draw c;
-elseif drawingstyle=2:
+elseif (drawingstyle=2) or (drawingstyle=3):
  begingroup
   pickup pencircle scaled ptiny;
-  save arclengths,diameter,divlength,divnumber,j;
+  save arclengths,diameter,divlength,divnumber,j,hastostop;
   numeric diameter,divlength,divnumber,j;
+  boolean hastostop;
   pair arclengths[]; % needs to be in this format to avoid overflows
   % note: the pair (11,500) means 11500
   diameter:=max(px,py);
-  % draw first and last point:
-  draw penpath shifted point 0 of c;
+  % draw first point:
+  if drawingstyle=3: overdraw else draw fi
+   penpath shifted point 0 of c;
   % calculate the arclengths from the beginning to every 1/100-th part
   % of a subpath, hence arclength[200] is the length of the subpath(0,2)
   arclengths[0]:=(0,0);
@@ -676,6 +692,7 @@ elseif drawingstyle=2:
    j:=0; % current path time (will be increased)
    for k=1 upto (divnumber-1): 
     % search for the pathtime j with the correct distance:
+    hastostop:=false; % condition for the forever-loop
     forever:
      if (j>=100*length(c)) or 
       ((ypart(arclengths[j]-arclengths[100*(i-1)])
@@ -688,17 +705,19 @@ elseif drawingstyle=2:
       +1000*xpart(arclengths[j]-arclengths[100*(i-1)]))-k*divlength): 
        j:=j-1;
       fi
-      exitif 0=0; % exit anyway
+      hastostop:=true;
      fi
+     exitif hastostop;
      j:=j+1;
     endfor
-    draw penpath shifted point (j/100) of c;
+    if drawingstyle=3: overdraw else draw fi
+     penpath shifted point (j/100) of c;
    endfor
-   draw penpath shifted point i of c;
+   if drawingstyle=3: overdraw else draw fi
+    penpath shifted point i of c;
   endfor
  endgroup
- elseif drawingstyle=3:
- fi
+fi
 enddef;
 
 %code_offset:=0; %later used for small caps
@@ -711,6 +730,10 @@ picture charpictures_[];
 pair charanchortops_[]; 
 pair charanchorbots_[]; 
 pair charanchortoprights_[];
+
+def clpchar(expr name, width, height, depth) =
+ beginchar(enc(name),width,height,depth)
+enddef;
 
 %def ffmchar(expr name, unit_width, height, depth) =
 % beginchar(enc(name)+code_offset,if unit_width=0: 0 else: unit_width*u#+2s# fi,height,depth);
