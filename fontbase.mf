@@ -609,7 +609,7 @@ elseif (drawingstyle=2) or (drawingstyle=3):
   % note: the pair (11,500) means 11500
   diameter:=max(px,py);
   % draw first point:
-  if drawingstyle=3: overdraw else draw fi
+  if drawingstyle=3: overdraw else: draw fi
    penpath shifted point 0 of c;
   % calculate the arclengths from the beginning to every 1/100-th part
   % of a subpath, hence arclength[200] is the length of the subpath(0,2)
@@ -646,10 +646,10 @@ elseif (drawingstyle=2) or (drawingstyle=3):
     exitif hastostop;
     j:=j+1;
    endfor
-   if drawingstyle=3: overdraw else draw fi
+   if drawingstyle=3: overdraw else: draw fi
     penpath shifted point (j/100) of c;
   endfor
-  if drawingstyle=3: overdraw else draw fi
+  if drawingstyle=3: overdraw else: draw fi
    penpath shifted point length(c) of c;
  endgroup
 fi
@@ -672,7 +672,7 @@ elseif (drawingstyle=2) or (drawingstyle=3):
   % note: the pair (11,500) means 11500
   diameter:=max(px,py);
   % draw first point:
-  if drawingstyle=3: overdraw else draw fi
+  if drawingstyle=3: overdraw else: draw fi
    penpath shifted point 0 of c;
   % calculate the arclengths from the beginning to every 1/100-th part
   % of a subpath, hence arclength[200] is the length of the subpath(0,2)
@@ -710,10 +710,10 @@ elseif (drawingstyle=2) or (drawingstyle=3):
      exitif hastostop;
      j:=j+1;
     endfor
-    if drawingstyle=3: overdraw else draw fi
+    if drawingstyle=3: overdraw else: draw fi
      penpath shifted point (j/100) of c;
    endfor
-   if drawingstyle=3: overdraw else draw fi
+   if drawingstyle=3: overdraw else: draw fi
     penpath shifted point i of c;
   endfor
  endgroup
