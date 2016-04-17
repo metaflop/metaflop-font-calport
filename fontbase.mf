@@ -15,6 +15,7 @@ font_normal_shrink 2u#;
 font_x_height x_ht#;
 %font_quad 18u#+2s#;
 font_extra_space 2u#;
+code_offset:=0; % may later used for small caps 
 
 %define_pixels(s,u);
 %define_whole_pixels(xgap);
@@ -732,13 +733,8 @@ pair charanchorbots_[];
 pair charanchortoprights_[];
 
 def clpchar(expr name, width, height, depth) =
- beginchar(enc(name),width,height,depth)
+ beginchar(enc(name)+code_offset,width,height,depth)
 enddef;
-
-%def ffmchar(expr name, unit_width, height, depth) =
-% beginchar(enc(name)+code_offset,if unit_width=0: 0 else: unit_width*u#+2s# fi,height,depth);
-% pickup logo_pen 
-%enddef;
 
 %extra_endchar := extra_endchar&"charpictures_[charcode]:=currentpicture;"
 % &"charwidths_[charcode]=charwd;"

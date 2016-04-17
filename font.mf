@@ -26,7 +26,7 @@
 
 font_size 10pt#;            % the "design size" of this font @hidden
 ht#:=7pt#;                  % height of characters           @hidden
-x_ht#:=5pt#;                % x-height of characters         $ 3 / 6
+x_ht#:=4.5pt#;                % x-height of characters         $ 3 / 6
 desc_depth#:=2.5pt#;          % depth of descenders			 $ 1 / 3
 u#:=0.1pt#;                 % unit width                     $ 0.05 / 2
 xgap#:=0.6pt#;              % horizontal adjustment          @hidden
