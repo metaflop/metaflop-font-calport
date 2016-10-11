@@ -8,6 +8,7 @@ define_pixels(s,u,xgap,px,py,ptiny,x_ht,ht,o,desc_depth);
 %ho#:=o#;                                % horizontal overshoot
 %leftstemloc#:=2.5u#+s#;                 % position of left stem
 
+
 font_coding_scheme "T1";
 font_slant slant;
 font_normal_stretch 3u#;
@@ -15,7 +16,7 @@ font_normal_shrink 2u#;
 font_x_height x_ht#;
 %font_quad 18u#+2s#;
 font_extra_space 2u#;
-code_offset:=0; % may later used for small caps 
+code_offset:=0; % may later used for small caps
 
 %define_pixels(s,u);
 %define_whole_pixels(xgap);
@@ -559,6 +560,7 @@ path penpath;
 if penshape=1:
  penpath=fullcircle xscaled px yscaled py rotated prot;
  pickup pencircle xscaled px yscaled py rotated prot; 
+ 
 elseif penshape=2:
  penpath=unitsquare shifted -(.5,.5) xscaled px yscaled py rotated prot;
  pickup pensquare xscaled px yscaled py rotated prot; 
