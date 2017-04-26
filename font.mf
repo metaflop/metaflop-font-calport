@@ -1,7 +1,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                                                                         %
-% MF Calport v1.0                                                         %
-% © 2016 by Marco Mueller                                                 %
+% MF Calport v1.1                                                         %
+% © 2017 by Marco Mueller                                                 %
 % thanks to Linus Roemer, Alexis Reigel, Jeremy Gibbons                   %
 % <http://www.metaflop.com>                                               %
 % licensed under gpl v3: www.gnu.org/licenses/                            %
@@ -10,7 +10,7 @@
 %                                                                         %
 % This program is free software: you can redistribute it and/or modify    %
 % it under the terms of the GNU General Public License as published       %
-% bythe Free Software Foundation, either version 3 of the License, or     %
+% by the Free Software Foundation, either version 3 of the License, or    %
 % (at your option) any later version.                                     %
 %                                                                         %
 % This program is distributed in the hope that it will be useful,         %
@@ -26,21 +26,23 @@
 
 font_size 10pt#;            % the "design size" of this font @hidden
 ht#:=7pt#;                  % height of characters           @hidden
-x_ht#:=4.5pt#;                % x-height of characters         $ 3 / 6
-desc_depth#:=2.5pt#;          % depth of descenders			 $ 1 / 3
-u#:=0.1pt#;                 % unit width                     $ 0.05 / 2
-xgap#:=0.6pt#;              % horizontal adjustment          @hidden
+x_ht#:=4.5pt#;              % x-height of characters         $ 3 / 6
+desc_depth#:=2.5pt#;        % depth of descenders			 $ 1 / 3
+u#:=1.25pt#;                % unit width                     $ 0.05 / 2
+xgap#:=0.25pt#;             % horizontal adjustment          @hidden
+s#:=0.2pt#;                 % extra space at the sides       $ 0 / 0.5
 px#:=0.5pt#;                % horizontal thickness of pen    $ 0.1 / 1.5
 py#:=0.5pt#;                % vertical pen thickness         $ 0.1 / 1.5
 prot:=0;                    % rotation angle of the pen      $ 0 / 90
 ptiny#:=.05*min(px#,py#);   % tiny pen width for pen outline @hidden
 o#:=.2*(px#*cosd(prot))++(py#*sind(prot)); % overshoot       @hidden
 slant:=0;                   % slanting amount                $ -0.3 / 0.3
-font_normal_space 20u#;     % width of the space char		 @hidden
-dnum:=0.5;                  % number of dots                 $ 0.1 / 3
-drawingstyle:=1;            % 1=line / 2=dots / 3=overdraw
+font_normal_space 5u#;     % width of the space char		 @hidden
+dnum:=1.5;                  % number of dots                 $ 0.1 / 3
+drawingstyle:=2;            % 1=line / 2=dots / 3=overdraw
 penshape:=1;                % 1=circle / 2=square / 3=razor / 4=triangle / 5=pentagon
 
-input fontbase;             % now generate the font, no need to input ligkerndef because font is monospaced
+input fontbase;             % now generate the font
 input glyphs_preview;
+input ligkerndef;
 bye;                

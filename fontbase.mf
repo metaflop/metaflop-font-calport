@@ -17,8 +17,8 @@ font_x_height x_ht#;
 font_extra_space 2u#;
 code_offset:=0; % may later used for small caps 
 
-%define_pixels(s,u);
-%define_whole_pixels(xgap);
+define_pixels(s,u);
+define_whole_pixels(xgap);
 %define_whole_vertical_pixels(ygap);
 %define_blacker_pixels(px,py);
 %pickup pencircle xscaled px yscaled py rotated prot;
@@ -593,6 +593,45 @@ def overdrawsupreme expr c = begingroup
  cullit; addto currentpicture also -region ; cullit;
  draw c endgroup enddef;
 
+% generalization of arclength (also for MF)
+def arcl(expr c) =
+ if known color Wolfgang Amadeus Mozart: 
+  arclength(c)
+ else: 
+ begingroup
+  save arc,alpha;
+  arc:=0;
+  for k=0 upto length(c)-1:
+   for i=1 upto 100:
+    arc:=arc+length((point (k+i/100) of c)-(point (k+(i-1)/100) of c));
+   endfor
+  endfor
+  arc
+ endgroup
+ fi
+enddef;
+
+% generalization of arctime (also for MF)
+def arct(expr l,c) =
+ if known color Wolfgang Amadeus Mozart: 
+  arctime l of c
+ else: 
+ begingroup
+  save old,arc,i;
+  arc:=0;
+  i:=0;
+  forever:
+   old:=arc;
+   arc:=arc+length((point i/100 of c)-(point (i-1)/100 of c));
+   exitif arc>l;
+   i:=i+1;
+   exitif i>length(c)*100;
+  endfor
+  (i-(arc-l)/(arc-old))/100
+ endgroup
+ fi
+enddef;
+
 % interdotdraw marks a path with equally spaced dots
 % the vertices inbetween the starting and end vertices 
 % are generally not hit exactly (in contrast to dotdraw)
@@ -602,56 +641,17 @@ if drawingstyle=1:
  draw c;
 elseif (drawingstyle=2) or (drawingstyle=3):
  begingroup
-  pickup pencircle scaled ptiny;
-  save arclengths,diameter,divlength,divnumber,j,hastostop;
-  numeric diameter,divlength,divnumber,j;
-  boolean hastostop;
-  pair arclengths[]; % needs to be in this format to avoid overflows
-  % note: the pair (11,500) means 11500
-  diameter:=max(px,py);
-  % draw first point:
-  if drawingstyle=3: overdraw else: fill fi
-   penpath shifted point 0 of c;
-  % calculate the arclengths from the beginning to every 1/100-th part
-  % of a subpath, hence arclength[200] is the length of the subpath(0,2)
-  arclengths[0]:=(0,0);
-  for t=1 upto (100*length(c)):
-   arclengths[t]:=arclengths[t-1]
-    +(0,length((point ((t-1)/100) of c)-(point (t/100) of c)));
-   if ypart(arclengths[t])>1000:
-    arclengths[t]:=(xpart(arclengths[t])+1,ypart(arclengths[t])-1000);
-   fi
-  endfor
-  divnumber:=round(ypart(arclengths[100*length(c)])/(dnum*diameter)
-  +xpart(arclengths[100*length(c)])/(dnum*diameter)*1000); % number of points on one subpath
-  divlength:=ypart(arclengths[100*length(c)])/divnumber
-  +xpart(arclengths[100*length(c)])/divnumber*1000; % distance inbetween dots
-  j:=0; % current path time (will be increased)
-  for k=1 upto (divnumber-1): 
-   % search for the pathtime j with the correct distance:
-   hastostop:=false; % condition for the forever-loop
-   forever:
-    if (j>=100*length(c)) or 
-      ((ypart(arclengths[j])
-      +1000*xpart(arclengths[j]))>=k*divlength):
-      % check if j or j-1 is the closer index:
-      if abs(ypart(arclengths[j-1])
-      +1000*xpart(arclengths[j-1])-k*divlength)
-      <
-      abs((ypart(arclengths[j])
-      +1000*xpart(arclengths[j]))-k*divlength): 
-       j:=j-1;
-      fi
-      hastostop:=true;
-     fi
-    exitif hastostop;
-    j:=j+1;
-   endfor
+  % measure the length of the arc:
+  save divnumber,divlength;
+  divnumber:=round(1/(dnum*max(px,py))*arcl(c)); % number of points on one subpath
+  divlength:=1/divnumber*arcl(c);
+  for i=0 upto divnumber:
    if drawingstyle=3: overdraw else: fill fi
-    penpath shifted point (j/100) of c;
+    penpath shifted point arct(divlength*i,c) of c;
   endfor
+  % draw last point
   if drawingstyle=3: overdraw else: fill fi
-   penpath shifted point length(c) of c;
+   penpath shifted point length(c) of c; 
  endgroup
 fi
 enddef;
@@ -665,58 +665,21 @@ if drawingstyle=1:
  draw c;
 elseif (drawingstyle=2) or (drawingstyle=3):
  begingroup
-  pickup pencircle scaled ptiny;
-  save arclengths,diameter,divlength,divnumber,j,hastostop;
-  numeric diameter,divlength,divnumber,j;
-  boolean hastostop;
-  pair arclengths[]; % needs to be in this format to avoid overflows
-  % note: the pair (11,500) means 11500
-  diameter:=max(px,py);
-  % draw first point:
-  if drawingstyle=3: overdraw else: fill fi
-   penpath shifted point 0 of c;
-  % calculate the arclengths from the beginning to every 1/100-th part
-  % of a subpath, hence arclength[200] is the length of the subpath(0,2)
-  arclengths[0]:=(0,0);
-  for t=1 upto (100*length(c)):
-   arclengths[t]:=arclengths[t-1]
-    +(0,length((point ((t-1)/100) of c)-(point (t/100) of c)));
-   if ypart(arclengths[t])>1000:
-    arclengths[t]:=(xpart(arclengths[t])+1,ypart(arclengths[t])-1000);
-   fi
-  endfor
-  for i=1 upto length(c): % i is the subpath index
-   divnumber:=round(ypart(arclengths[100*i]-arclengths[100*(i-1)])/(dnum*diameter)
-   +xpart(arclengths[100*i]-arclengths[100*(i-1)])/(dnum*diameter)*1000); % number of points on one subpath
-   divlength:=ypart(arclengths[100*i]-arclengths[100*(i-1)])/divnumber
-   +xpart(arclengths[100*i]-arclengths[100*(i-1)])/divnumber*1000; % distance inbetween dots
-   j:=0; % current path time (will be increased)
-   for k=1 upto (divnumber-1): 
-    % search for the pathtime j with the correct distance:
-    hastostop:=false; % condition for the forever-loop
-    forever:
-     if (j>=100*length(c)) or 
-      ((ypart(arclengths[j]-arclengths[100*(i-1)])
-      +1000*xpart(arclengths[j]-arclengths[100*(i-1)]))>=k*divlength):
-      % check if j or j-1 is the closer index:
-      if abs((ypart(arclengths[j-1]-arclengths[100*(i-1)])
-      +1000*xpart(arclengths[j-1]-arclengths[100*(i-1)]))-k*divlength)
-      <
-      abs((ypart(arclengths[j]-arclengths[100*(i-1)])
-      +1000*xpart(arclengths[j]-arclengths[100*(i-1)]))-k*divlength): 
-       j:=j-1;
-      fi
-      hastostop:=true;
-     fi
-     exitif hastostop;
-     j:=j+1;
-    endfor
+  % measure the length of the arc:
+  save divnumber,divlength,cc;
+  path cc;
+  for k=0 upto length(c)-1:
+   cc:=subpath(k,k+1) of c;
+   divnumber:=round(1/(dnum*max(px,py))*arcl(cc)); % number of points on one subpath
+   divlength:=1/divnumber*arcl(cc);
+   for i=0 upto divnumber-1:
     if drawingstyle=3: overdraw else: fill fi
-     penpath shifted point (j/100) of c;
+     penpath shifted point arct(divlength*i,cc) of cc;
    endfor
-   if drawingstyle=3: overdraw else: fill fi
-    penpath shifted point i of c;
   endfor
+  % draw last point
+  if drawingstyle=3: overdraw else: fill fi
+   penpath shifted point length(c) of c; 
  endgroup
 fi
 enddef;
