@@ -1,3 +1,13 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                                                         %
+% MF Calport v1.1                                                         %
+% © 2017 by Marco Mueller                                                 %
+% thanks to Linus Roemer, Alexis Reigel, Jeremy Gibbons                   %
+% <http://www.metaflop.com>                                               %
+% licensed under gpl v3: www.gnu.org/licenses/                            %
+%                                                                         %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
+
 addkernclassf("A","Abreve","Aogonek","Agrave","Aacute","Acircumflex","Atilde","Adieresis","Aring");
 addkernclassf("B");
 addkernclassf("C","Cacute","Ccaron","Ccedilla");

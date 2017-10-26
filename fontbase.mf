@@ -2,31 +2,33 @@ mode_setup;
 currenttransform:=identity slanted slant;
 define_pixels(s,u,xgap,px,py,ptiny,x_ht,ht,o,desc_depth);
 
-%if unknown slant: slant:=0 else: currenttransform:=
-% identity slanted slant yscaled aspect_ratio fi;
+if unknown slant: slant:=0 else: currenttransform:=
+ identity slanted slant yscaled aspect_ratio fi;
  
-%ho#:=o#;                                % horizontal overshoot
-%leftstemloc#:=2.5u#+s#;                 % position of left stem
+ho#:=o#;                                % horizontal overshoot
+leftstemloc#:=2.5u#+s#;                 % position of left stem
 
+% font infos %
 font_coding_scheme "T1";
-font_slant slant;
 font_normal_stretch 3u#;
 font_normal_shrink 2u#;
 font_x_height x_ht#;
-%font_quad 18u#+2s#;
+font_quad 18u#+2s#;
 font_extra_space 2u#;
+font_slant slant;
 code_offset:=0; % may later used for small caps 
 
+% pixel conversions %
 define_pixels(s,u);
 define_whole_pixels(xgap);
 %define_whole_vertical_pixels(ygap);
-%define_blacker_pixels(px,py);
-%pickup pencircle xscaled px yscaled py rotated prot;
-%logo_pen:=savepen;
-%define_good_x_pixels(leftstemloc);
-%define_good_y_pixels(barheight,x_ht,ht);
-%define_corrected_pixels(o);
-%define_horizontal_corrected_pixels(ho);
+define_blacker_pixels(px,py);
+pickup pencircle xscaled px yscaled py rotated prot;
+logo_pen:=savepen;
+define_good_x_pixels(leftstemloc);
+define_good_y_pixels(x_ht,ht);
+define_corrected_pixels(o);
+define_horizontal_corrected_pixels(ho);
 
 % enc encodes names to numbers, so enc("A")=65
 % altough defining an array first seems to be 
@@ -593,6 +595,80 @@ def overdrawsupreme expr c = begingroup
  cullit; addto currentpicture also -region ; cullit;
  draw c endgroup enddef;
 
+% returns true iff the curve c has length 1 (no points
+% inbetween) and is straight (curvature 0)
+def isstraight(expr c) =
+ if (length(c)=1) and (angle(direction 1 of c)=angle(direction 0 of c)) 
+ and (angle((point 1 of c)-(point 0 of c))=angle(direction 0 of c)):
+  true
+ else:
+  false
+ fi
+enddef;
+
+% returns 1 if point p is right of the line
+% going through point q heading in direction d
+% returns -1 for left
+% returns 0 for being on the line
+def sideof(expr p,q,d) =
+ if xpart(d)*(ypart(q)-ypart(p))>ypart(d)*(xpart(q)-xpart(p)):
+  1
+ elseif xpart(d)*(ypart(q)-ypart(p))=ypart(d)*(xpart(q)-xpart(p)):
+  0
+ else:
+  -1
+ fi
+enddef;
+
+% returns true iff point p is inside the curve c
+% the idea is to check for a bunch of points on c
+% if p is always on the same side of the tangent
+def isinside(expr p,c) =
+ if (point length(c) of c = point 0 of c):
+  begingroup
+   save inside,side;
+   boolean inside;
+   inside=true;
+   side:=sideof(p,point 0 of c,direction 0 of c);
+   for k=0 upto length(c)-1:
+    for i=1 upto 5:
+     if sideof(p,point (k+i/5) of c,direction (k+i/5) of c)*side<=0:
+      inside:=false;
+     fi
+     exitif not inside;
+    endfor
+   endfor
+   inside
+  endgroup
+ else:
+  false
+ fi
+enddef;
+
+% draw white carpet
+%
+% draws a point on curve c with time t
+% with respect to the future point with time s
+def moondraw(expr c,t,s) = 
+ begingroup
+  save curvea,curveb,firsttimea,secondtimea;
+  path curvea,curveb;
+  curvea = penpath shifted point t of c;
+  curveb = penpath shifted point s of c;
+  % we know that there will be most probably only two
+  % intersection points, hence: using reverse curve!
+  firsttimea:=xpart(curvea intersectiontimes curveb);
+  secondtimea:=length(curvea)-xpart((reverse curvea) intersectiontimes curveb);
+  if not(point s of c = point t of c): % avoid a complete overlapping
+   if isinside(point .5[firsttimea,secondtimea] of curvea,curveb):
+    draw (subpath(secondtimea,length(curvea)) of curvea).. (subpath(0,firsttimea) of curvea)
+   else:
+    draw subpath(firsttimea,secondtimea) of curvea
+   fi
+  fi
+ endgroup
+enddef;
+
 % generalization of arclength (also for MF)
 def arcl(expr c) =
  if known color Wolfgang Amadeus Mozart: 
@@ -602,9 +678,13 @@ def arcl(expr c) =
   save arc,alpha;
   arc:=0;
   for k=0 upto length(c)-1:
-   for i=1 upto 100:
-    arc:=arc+length((point (k+i/100) of c)-(point (k+(i-1)/100) of c));
-   endfor
+   if isstraight(subpath(k,k+1) of c):
+    arc:=arc+length((point (k+1) of c)-(point k of c));
+   else:
+    for i=1 upto 100:
+     arc:=arc+length((point (k+i/100) of c)-(point (k+(i-1)/100) of c));
+    endfor
+   fi
   endfor
   arc
  endgroup
@@ -625,7 +705,7 @@ def arct(expr l,c) =
    arc:=arc+length((point i/100 of c)-(point (i-1)/100 of c));
    exitif arc>l;
    i:=i+1;
-   exitif i>length(c)*100;
+   exitif i>=length(c)*100;
   endfor
   (i-(arc-l)/(arc-old))/100
  endgroup
@@ -641,17 +721,41 @@ if drawingstyle=1:
  draw c;
 elseif (drawingstyle=2) or (drawingstyle=3):
  begingroup
+  pickup pencircle scaled ptiny;
   % measure the length of the arc:
   save divnumber,divlength;
   divnumber:=round(1/(dnum*max(px,py))*arcl(c)); % number of points on one subpath
   divlength:=1/divnumber*arcl(c);
+  % draw a white carpet anyway 
+  if drawingstyle=3: 
+   for i=0 upto divnumber:
+    erase fill penpath shifted point arct(divlength*i,c) of c;
+   endfor
+  fi
   for i=0 upto divnumber:
-   if drawingstyle=3: overdraw else: fill fi
-    penpath shifted point arct(divlength*i,c) of c;
+   if drawingstyle=3: 
+    if not (((point length(c) of c)=(point 0 of c)) 
+    and (i>max(divnumber/2,divnumber-3))): % this is just an 
+    % approximation to avoid the comma problem, so the last points
+    % won't get a white carpet, if the path is cyclic
+     erase fill penpath shifted point arct(divlength*i,c) of c;
+    fi
+    moondraw(c,arct(divlength*i,c),arct(divlength*(i+1),c));
+   else: 
+    fill penpath shifted point arct(divlength*i,c) of c;
+   fi
   endfor
   % draw last point
-  if drawingstyle=3: overdraw else: fill fi
-   penpath shifted point length(c) of c; 
+  if drawingstyle=3: 
+   if (point length(c) of c) = (point 0 of c): % if c is cyclic
+    moondraw(c,length(c),0);
+   else:
+    erase fill penpath shifted point length(c) of c;
+    draw penpath shifted point length(c) of c
+   fi
+  else: 
+   fill penpath shifted point length(c) of c;
+  fi
  endgroup
 fi
 enddef;
@@ -664,23 +768,63 @@ if drawingstyle=1:
  pickup cornerpen;
  draw c;
 elseif (drawingstyle=2) or (drawingstyle=3):
+ % if the path is a single point:
+ if pair c:
+  if drawingstyle=3: 
+   erase fill penpath shifted point 0 of c;
+   draw penpath shifted point 0 of c
+  else: 
+   fill penpath shifted point 0 of c;
+  fi
+ else: 
  begingroup
+  pickup pencircle scaled ptiny;
   % measure the length of the arc:
   save divnumber,divlength,cc;
   path cc;
+  % draw a white carpet anyway 
+  if drawingstyle=3: 
+   for k=0 upto length(c)-1:
+    cc:=subpath(k,k+1) of c;
+    divnumber:=round(1/(dnum*max(px,py))*arcl(cc)); % number of points on one subpath
+    divlength:=1/divnumber*arcl(cc);
+    for i=0 upto divnumber-1:
+     erase fill penpath shifted point arct(divlength*i,cc) of cc;
+    endfor
+   endfor
+  fi
+  % draw actual points
   for k=0 upto length(c)-1:
    cc:=subpath(k,k+1) of c;
    divnumber:=round(1/(dnum*max(px,py))*arcl(cc)); % number of points on one subpath
    divlength:=1/divnumber*arcl(cc);
    for i=0 upto divnumber-1:
-    if drawingstyle=3: overdraw else: fill fi
-     penpath shifted point arct(divlength*i,cc) of cc;
+    if drawingstyle=3: 
+     if not (((point length(c) of c)=(point 0 of c)) 
+     and (k=length(c)-1)): % this is just an 
+     % approximation to avoid the comma problem, so the last points
+     % won't get a white carpet, if the path is cyclic
+      erase fill penpath shifted point arct(divlength*i,cc) of cc;
+     fi
+     moondraw(cc,arct(divlength*i,cc),arct(divlength*(i+1),cc));
+    else: 
+     fill penpath shifted point arct(divlength*i,cc) of cc;
+    fi
    endfor
   endfor
   % draw last point
-  if drawingstyle=3: overdraw else: fill fi
-   penpath shifted point length(c) of c; 
+  if drawingstyle=3: 
+   if (point length(c) of c)=(point 0 of c): % if c is cyclic
+    moondraw(c,length(c),0);
+   else:
+    erase fill penpath shifted point length(c) of c;
+    draw penpath shifted point length(c) of c
+   fi
+  else: 
+   fill penpath shifted point length(c) of c;
+  fi
  endgroup
+ fi
 fi
 enddef;
 
@@ -699,11 +843,11 @@ def clpchar(expr name, width, height, depth) =
  beginchar(enc(name)+code_offset,width,height,depth)
 enddef;
 
-%extra_endchar := extra_endchar&"charpictures_[charcode]:=currentpicture;"
-% &"charwidths_[charcode]=charwd;"
-% &"charheights_[charcode]=charht;"
-% &"chardepths_[charcode]=chardp;"
-% &"charitalcorrs_[charcode]=charic;";
+extra_endchar := extra_endchar&"charpictures_[charcode]:=currentpicture;"
+ &"charwidths_[charcode]=charwd;"
+ &"charheights_[charcode]=charht;"
+ &"chardepths_[charcode]=chardp;"
+ &"charitalcorrs_[charcode]=charic;";
 
 def ffmcombinedchar(expr namea,nameb,namec,anchor,height,depth) =
  beginchar(enc(namea)+code_offset,charwidths_[enc(nameb)+code_offset],height,depth);
