@@ -1,12 +1,25 @@
-mode_setup;
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                                                         %
+% MF Calport v1.1                                                         %
+% © 2017 by Marco Mueller                                                 %
+% thanks to Linus Roemer, Alexis Reigel, Jeremy Gibbons                   %
+% <http://www.metaflop.com>                                               %
+% licensed under gpl v3: www.gnu.org/licenses/                            %
+%                                                                         %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+
+% general %
 currenttransform:=identity slanted slant;
 define_pixels(s,u,xgap,px,py,ptiny,x_ht,ht,o,desc_depth);
-
 if unknown slant: slant:=0 else: currenttransform:=
  identity slanted slant yscaled aspect_ratio fi;
- 
 ho#:=o#;                                % horizontal overshoot
 leftstemloc#:=2.5u#+s#;                 % position of left stem
+letter_fit#:=0.0u#;                     % ad-hoc dimension that adds to all sidebearings
+shrink_fit:=0.0u#;                       % amount subtracted from w before each character in the font has been drawn
+
+mode=luxo;
+mode_setup;
 
 % font infos %
 font_coding_scheme "T1";
@@ -17,18 +30,6 @@ font_quad 18u#+2s#;
 font_extra_space 2u#;
 font_slant slant;
 code_offset:=0; % may later used for small caps 
-
-% pixel conversions %
-define_pixels(s,u);
-define_whole_pixels(xgap);
-%define_whole_vertical_pixels(ygap);
-define_blacker_pixels(px,py);
-pickup pencircle xscaled px yscaled py rotated prot;
-logo_pen:=savepen;
-define_good_x_pixels(leftstemloc);
-define_good_y_pixels(x_ht,ht);
-define_corrected_pixels(o);
-define_horizontal_corrected_pixels(ho);
 
 % enc encodes names to numbers, so enc("A")=65
 % altough defining an array first seems to be 
@@ -578,6 +579,7 @@ elseif penshape=5:
 fi
 cornerpen:=savepen;
 
+% sidebearings %
 def adjustwidth(expr left_adjustment,right_adjustment) = 
  l:=-hround(left_adjustment*hppp);
  interim xoffset:=-l; 
@@ -839,6 +841,7 @@ pair charanchortops_[];
 pair charanchorbots_[]; 
 pair charanchortoprights_[];
 
+% begin and end character mocros %
 def clpchar(expr name, width, height, depth) =
  beginchar(enc(name)+code_offset,width,height,depth)
 enddef;
