@@ -1,7 +1,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                                                                         %
 % MF Calport v1.1                                                         %
-% © 2017 by Marco Mueller                                                 %
+% Â© 2017 by Marco Mueller                                                 %
 % thanks to Linus Roemer, Alexis Reigel, Jeremy Gibbons                   %
 % <http://www.metaflop.com>                                               %
 % licensed under gpl v3: www.gnu.org/licenses/                            %
