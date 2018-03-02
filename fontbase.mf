@@ -16,7 +16,7 @@ if unknown slant: slant:=0 else: currenttransform:=
 ho#:=o#;                                % horizontal overshoot
 leftstemloc#:=2.5u#+s#;                 % position of left stem
 letter_fit#:=0.0u#;                     % ad-hoc dimension that adds to all sidebearings
-shrink_fit:=0.0u#;                       % amount subtracted from w before each character in the font has been drawn
+shrink_fit:=0.0u#;                      % amount subtracted from w before each character in the font has been drawn
 
 mode=luxo;
 mode_setup;
@@ -726,7 +726,7 @@ elseif (drawingstyle=2) or (drawingstyle=3):
   pickup pencircle scaled ptiny;
   % measure the length of the arc:
   save divnumber,divlength;
-  divnumber:=round(1/(dnum*max(px,py))*arcl(c)); % number of points on one subpath
+  divnumber:=round(dnum/(max(px,py))*arcl(c)); % number of points on one subpath
   divlength:=1/divnumber*arcl(c);
   % draw a white carpet anyway 
   if drawingstyle=3: 
@@ -788,7 +788,7 @@ elseif (drawingstyle=2) or (drawingstyle=3):
   if drawingstyle=3: 
    for k=0 upto length(c)-1:
     cc:=subpath(k,k+1) of c;
-    divnumber:=round(1/(dnum*max(px,py))*arcl(cc)); % number of points on one subpath
+    divnumber:=round(dnum/(max(px,py))*arcl(cc)); % number of points on one subpath
     divlength:=1/divnumber*arcl(cc);
     for i=0 upto divnumber-1:
      erase fill penpath shifted point arct(divlength*i,cc) of cc;
@@ -798,7 +798,7 @@ elseif (drawingstyle=2) or (drawingstyle=3):
   % draw actual points
   for k=0 upto length(c)-1:
    cc:=subpath(k,k+1) of c;
-   divnumber:=round(1/(dnum*max(px,py))*arcl(cc)); % number of points on one subpath
+   divnumber:=round(dnum/(max(px,py))*arcl(cc)); % number of points on one subpath
    divlength:=1/divnumber*arcl(cc);
    for i=0 upto divnumber-1:
     if drawingstyle=3: 
