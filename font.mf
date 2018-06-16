@@ -26,7 +26,9 @@
 font_size 10pt#;            % the "design size" of this font @hidden
 ht#:=7pt#;                  % height of characters           @hidden
 x_ht#:=4.5pt#;              % x-height of characters         $ 3 / 6
-desc_depth#:=2.5pt#;        % depth of descenders			 $ 1 / 3
+acc_ht#:=2.5pt#;            % height of the accents			 $ 1 / 3
+acc_depth#:=2.5pt#; 		% dept of the accents			 $ 1 / 3
+desc_depth#:=2.5pt#;        % depth of descenders			 $ -3 / -1
 u#:=1.25pt#;                % unit width                     $ 0.05 / 2
 xgap#:=0.25pt#;             % horizontal adjustment          @hidden
 s#:=0.2pt#;                 % extra space at the sides       $ 0 / 0.5
@@ -36,9 +38,9 @@ prot:=0;                    % rotation angle of the pen      $ 0 / 90
 ptiny#:=.05*min(px#,py#);   % tiny pen width for pen outline @hidden
 o#:=.2*(px#*cosd(prot))++(py#*sind(prot)); % overshoot       @hidden
 slant:=0;                   % slanting amount                $ -0.3 / 0.3
-font_normal_space 5u#;     % width of the space char		 @hidden
+font_normal_space 3u#;     % width of the space char		 @hidden
 dnum:=0.7;                  % number of dots                 $ 0.15 / 1.5
-drawingstyle:=2;            % 1=line / 2=dots / 3=overdraw
+drawingstyle:=1;            % 1=line / 2=dots / 3=overdraw
 penshape:=1;                % 1=circle / 2=square / 3=razor / 4=triangle / 5=pentagon
 
 input fontbase;             % now generate the font

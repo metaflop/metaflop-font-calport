@@ -9,7 +9,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 
 % general %
-currenttransform:=identity slanted slant;
 define_pixels(s,u,xgap,px,py,ptiny,x_ht,ht,o,desc_depth);
 if unknown slant: slant:=0 else: currenttransform:=
  identity slanted slant yscaled aspect_ratio fi;
@@ -21,6 +20,11 @@ shrink_fit:=0.0u#;                      % amount subtracted from w before each c
 mode=luxo;
 mode_setup;
 
+% slant %
+if unknown slant: slant:=0 else: currenttransform:=
+ identity slanted slant yscaled aspect_ratio 
+fi;
+
 % font infos %
 font_coding_scheme "T1";
 font_normal_stretch 3u#;
@@ -29,7 +33,6 @@ font_x_height x_ht#;
 font_quad 18u#+2s#;
 font_extra_space 2u#;
 font_slant slant;
-code_offset:=0; % may later used for small caps 
 
 % enc encodes names to numbers, so enc("A")=65
 % altough defining an array first seems to be 
@@ -770,17 +773,17 @@ if drawingstyle=1:
  pickup cornerpen;
  draw c;
 elseif (drawingstyle=2) or (drawingstyle=3):
+ pickup pencircle scaled ptiny;
  % if the path is a single point:
  if pair c:
   if drawingstyle=3: 
-   erase fill penpath shifted point 0 of c;
-   draw penpath shifted point 0 of c
+   erase fill penpath shifted c;
+   draw penpath shifted c
   else: 
-   fill penpath shifted point 0 of c;
+   fill penpath shifted c;
   fi
  else: 
  begingroup
-  pickup pencircle scaled ptiny;
   % measure the length of the arc:
   save divnumber,divlength,cc;
   path cc;
@@ -830,8 +833,9 @@ elseif (drawingstyle=2) or (drawingstyle=3):
 fi
 enddef;
 
-%code_offset:=0; %later used for small caps
+code_offset:=0; % may later used for small caps 
 
+% composite glyphs %
 numeric charwidths_[];
 numeric charheights_[];
 numeric chardepths_[];
@@ -841,7 +845,8 @@ pair charanchortops_[];
 pair charanchorbots_[]; 
 pair charanchortoprights_[];
 
-% begin and end character mocros %
+
+% begin and end character macros %
 def clpchar(expr name, width, height, depth) =
  beginchar(enc(name)+code_offset,width,height,depth)
 enddef;
@@ -852,7 +857,8 @@ extra_endchar := extra_endchar&"charpictures_[charcode]:=currentpicture;"
  &"chardepths_[charcode]=chardp;"
  &"charitalcorrs_[charcode]=charic;";
 
-def ffmcombinedchar(expr namea,nameb,namec,anchor,height,depth) =
+% composite glyphs %
+def clpcombinedchar(expr namea,nameb,namec,anchor,height,depth) =
  beginchar(enc(namea)+code_offset,charwidths_[enc(nameb)+code_offset],height,depth);
  charic:=charitalcorrs_[enc(nameb)+code_offset];
  addto currentpicture also charpictures_[enc(nameb)+code_offset];
@@ -872,7 +878,7 @@ def ffmcombinedchar(expr namea,nameb,namec,anchor,height,depth) =
 enddef;
 
 % chain two chars like "f" and "l" to "fl"
-def ffmchainedchar(expr namea,nameb,namec) =
+def clpchainedchar(expr namea,nameb,namec) =
  beginchar(
   enc(namea)+code_offset,
   charwidths_[enc(nameb)+code_offset]
@@ -890,7 +896,7 @@ def ffmchainedchar(expr namea,nameb,namec) =
 enddef;
 
 % copy a letter nameb to namea
-def ffmcopiedchar(expr namea,nameb) =
+def clpcopiedchar(expr namea,nameb) =
  beginchar(
   enc(namea),
   charwidths_[enc(nameb)],
