@@ -895,7 +895,7 @@ endchar;
 
 
 % one
-if sset=1:
+if (sset=1) or (sset=3):
 	clpchar("one",4.5u#,ht#,0);
 	pickup cornerpen;
 	x1=x2=0.725w;
@@ -921,7 +921,7 @@ elseif sset=2:
 fi
 
 % two
-if sset=1:
+if (sset=1) or (sset=3):
 	clpchar("two",4.5u#,ht#,0);
 	pickup cornerpen;
 	x2=0.15w;
@@ -956,7 +956,7 @@ elseif sset=2:
 fi
 
 % three
-if sset=1:
+if (sset=1) or (sset=3):
 	clpchar("three",4.5u#,ht#,0);
 	pickup cornerpen;
 	x1=0.1w;
@@ -994,7 +994,7 @@ elseif sset=2:
 fi
 
 % four
-if sset=1:
+if (sset=1) or (sset=3):
 	clpchar("four",4.5u#,ht#,0);
 	pickup cornerpen;
 	x1=0.05w;
@@ -1025,7 +1025,7 @@ elseif sset=2:
 fi
 
 % five
-if sset=1:
+if (sset=1) or (sset=3):
 	clpchar("five",4.5u#,ht#,0);
 	pickup cornerpen;
 	x1=0.1w;
@@ -1102,6 +1102,23 @@ elseif sset=2:
 	adjustwidth(xgap#,xgap#);
 	penlabels(range 1 thru 150);
 	endchar;
+elseif sset=3:
+	clpchar("six",4.5u#,ht#,0);
+	pickup cornerpen;
+	x1=x9=0.125w;
+	x3=x4=x5=x1+0.5(x8-x1);
+	x8=0.875w;
+	x6=0.8w;
+	bot y4=0-o;
+	top y3=top y6=h;
+	y5=0.6h;
+	y9=0.7h;
+	y1=y8=y4+0.5(y5-y4);
+	interdotdraw z1{up}..z5{right}..z8{down}..z4{left}..cycle;
+	interdotdraw z1--z9{up}..z3{right}--z6;
+	adjustwidth(xgap#,xgap#);
+	penlabels(range 1 thru 150);
+	endchar;
 fi
 
 % seven
@@ -1118,7 +1135,7 @@ penlabels(range 1 thru 150);
 endchar;
 
 % eight
-if sset=1:
+if (sset=1) or (sset=3):
 	clpchar("eight",4.5u#,ht#,0);
 	pickup cornerpen;
 	x1=0.125w;
@@ -1193,6 +1210,23 @@ elseif sset=2:
 	y1=y8=y5+0.5(y4-y5);
 	interdotdraw z1{down}..z5{left}..z8{up}..z4{right}..cycle;
 	dotdraw z1--z10--z3;
+	adjustwidth(xgap#,xgap#);
+	penlabels(range 1 thru 150);
+	endchar;
+elseif sset=3:
+	clpchar("nine",4.5u#,ht#,0);
+	pickup cornerpen;
+	x1=x9=0.875w;
+	x3=x4=x5=x8+0.5(x1-x8);
+	x8=0.125w;
+	x6=0.2w;
+	top y4=h+o;
+	bot y3=bot y6=0;
+	y5=0.4h;
+	y9=0.3h;
+	y1=y8=y5+0.5(y4-y5);
+	interdotdraw z1{down}..z5{left}..z8{up}..z4{right}..cycle;
+	interdotdraw z1--z9{down}..z3{left}--z6;
 	adjustwidth(xgap#,xgap#);
 	penlabels(range 1 thru 150);
 	endchar;
