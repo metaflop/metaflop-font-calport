@@ -1,6 +1,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                                                                         %
-% MF Calport v1.3                                                         %
+% MF Calport v1.4                                                         %
 % © 2019 by Marco Mueller                                                 %
 % thanks to Linus Roemer, Alexis Reigel, Jeremy Gibbons                   %
 % <http://www.metaflop.com>                                               %
@@ -42,7 +42,7 @@ font_normal_space 3u#;     % width of the space char		 @hidden
 dnum:=0.7;                  % number of dots                 $ 0.15 / 1.5
 drawingstyle:=1;            % 1=line / 2=dots / 3=overdraw
 penshape:=1;                % 1=circle / 2=square / 3=razor / 4=triangle / 5=pentagon
-sset:=3;                    % stylistic set 1=normal / 2= simplified / 2=monospace
+sset:=3;                    % stylistic set 1=normal / 2= simplified / 3=monospace
 
 input fontbase;             % now generate the font
 input glyphs_preview;
