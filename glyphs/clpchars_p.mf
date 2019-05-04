@@ -1786,7 +1786,7 @@ fi
 if (sset=1) or (sset=3):
 	clpchar("K",4.5u#,ht#,0);
 	pickup cornerpen;
-	x1=x2=x4=0.15w;
+	x1=x2=x4=0.1725w;
 	x3=0.975w;
 	x5=0.925w;
 	y4=0.5h;
@@ -1832,7 +1832,7 @@ if (sset=1) or (sset=2):
 elseif sset=3:
 	clpchar("L",4.5u#,ht#,0);
 	pickup cornerpen;
-	x1=x2=0.15w;
+	x1=x2=0.175w;
 	x3=0.9w;
 	bot y2=bot y3=0;
 	top y1=h;
@@ -2002,10 +2002,10 @@ elseif sset=2:
 elseif sset=3:
 	clpchar("Q",4.5u#,ht#,0);
 	pickup cornerpen;
-	x1=x6=0.95w;
+	x1=x6=0.925w;
 	x2=x4=0.5w;
-	x3=0.05w;
-	x5=0.675w;
+	x3=0.075w;
+	x5=0.65w;
 	top y2=h+o;
 	y1=y3=0.5h;
 	y5=0.275h;
@@ -2125,14 +2125,12 @@ elseif sset=3:
 	x4=x7=x9=0.9w;
 	bot y3=-o;
 	top y6=h+o;
-	y1=0.2h;
-	y4=0.25h+0.25px;
+	y1=y4=0.25h;
 	y5=0.5h;
-	y2=0.75h-0.25px;
-	y7=0.8h;
+	y2=y7=0.75h;
 	y8=0.55h;
 	y9=0.45h;
-	interdotdraw z1..z3{right}..z4{up}..z5{z8-z9}..z2{up}..z6{right}..z7;
+	interdotdraw z1{down}..z3{right}..z4{up}..z5{z8-z9}..z2{up}..z6{right}..z7{down};
 	charanchortops_[charcode]=(.5w,h);
 	charanchorbots_[charcode]=(.5w,0);
 	adjustwidth(xgap#,xgap#);
@@ -2160,8 +2158,8 @@ elseif sset=3:
 	clpchar("T",4.5u#,ht#,0);
 	pickup cornerpen;
 	x1=x2=0.5w;
-	x3=0.05w;
-	x4=0.95w;
+	x3=0.075w;
+	x4=0.925w;
 	bot y1=0;
 	top y2=top y3=top y4=h;
 	dotdraw z1--z2;
@@ -2220,9 +2218,9 @@ if (sset=1) or (sset=2):
 elseif sset=3:
 	clpchar("V",4.5u#,ht#,0);
 	pickup cornerpen;
-	x1=0.05w;
+	x1=0.075w;
 	x3=0.5w;
-	x4=0.95w;
+	x4=0.925w;
 	bot y3=0;
 	top y1=top y4=h;
 	dotdraw z1--z3--z4;
@@ -2283,10 +2281,10 @@ if (sset=1) or (sset=2):
 elseif sset=3:
 	clpchar("X",4.5u#,ht#,0);
 	pickup cornerpen;
-	x1=0.05w;
-	x2=0.075w;
+	x1=0.075w;
+	x2=0.1w;
 	x3=0.925w;
-	x4=0.95w;
+	x4=0.9w;
 	bot y1=bot y3=0;
 	top y2=top y4=h;
 	z5=whatever[z2,z3]=whatever[z1,z4];
@@ -2301,8 +2299,8 @@ fi
 if (sset=1) or (sset=2):
 	clpchar("Y",5u#,ht#,0);
 	pickup cornerpen;
-	x2=0.025w;
-	x4=0.975w;
+	x2=0.05w;
+	x4=0.95w;
 	x1=x5=0.5w;
 	bot y1=0;
 	top y2=top y4=h;
@@ -2348,8 +2346,8 @@ if (sset=1) or (sset=2):
 elseif sset=3:
 	clpchar("Z",4.5u#,ht#,0);
 	pickup cornerpen;
-	x1=x2=0.075w;
-	x3=x4=0.925w;
+	x1=x2=0.1w;
+	x3=x4=0.9w;
 	x5=0.5w;
 	bot y1=bot y3=0;
 	top y2=top y4=h;
@@ -2525,9 +2523,9 @@ if (sset=1) or (sset=2):
 elseif sset=3:
 	clpchar("c",4.5u#,x_ht#,0);
 	pickup cornerpen;
-	x1=x5=0.9w;
+	x1=x5=0.85w;
 	x2=x4=0.525w;
-	x3=0.11w;
+	x3=0.15w;
 	top y2=x_ht+o;
 	y1=0.75x_ht;
 	y3=0.5x_ht;
@@ -2686,7 +2684,7 @@ if (sset=1) or (sset=3):
 	y2=h;
 	top y3=x_ht+o;
 	bot y5=0;
-	y4=y6=0.5x_ht;
+	y4=y6=0.525x_ht;
 	dotdraw z1--z6--z2;
 	interdotdraw z5--z4{up}..z3{left}..z6{down};
 	adjustwidth(xgap#,xgap#);
@@ -2753,7 +2751,7 @@ elseif sset=2:
 elseif sset=3:
 	clpchar("k",4.5u#,ht#,0);
 	pickup cornerpen;
-	x1=x2=x4=x6=0.15w;
+	x1=x2=x4=x6=0.2w;
 	x3=x5=0.85w;
 	bot y1=0;
 	y2=h;
@@ -2846,7 +2844,7 @@ elseif sset=3:
 	bot y1=bot y5=bot y9=0;
 	top y2=x_ht;
 	top y3=top y7=x_ht+o;
-	y4=y6=y8=0.65x_ht;
+	y4=y6=y8=0.675x_ht;
 	dotdraw z1--z6--z2;
 	dotdraw z5--z4{up}..z3{left}..z6{down};
 	dotdraw z9--z8{up}..z7{left}..z4{down};
@@ -2865,7 +2863,7 @@ if (sset=1) or (sset=3):
 	bot y1=bot y5=0;
 	top y2=x_ht;
 	top y3=x_ht+o;
-	y4=y6=0.5x_ht;
+	y4=y6=0.525x_ht;
 	dotdraw z1--z6--z2;
 	interdotdraw z5--z4{up}..z3{left}..z6{down};
 	charanchortops_[charcode]=(.5w,h);
@@ -2982,7 +2980,7 @@ if sset=1:
 	bot y1=0;
 	top y2=x_ht;
 	top y3=x_ht+o;
-	y6=0.5x_ht;
+	y6=0.525x_ht;
 	dotdraw z1--z6--z2;
 	interdotdraw z3{left}..z6{down};
 	charanchortops_[charcode]=(.5w,h);
@@ -3005,13 +3003,16 @@ elseif sset=2:
 elseif sset=3:
 	clpchar("r",4.5u#,x_ht#,0);
 	pickup cornerpen;
-	x3=0.7w;
-	x1=x2=x6=0.25w;
-	bot y1=0;
-	top y2=x_ht;
+	x3=0.85w;
+	x4=x5=0.15w;
+	x7=0.65w;
+	x1=x2=x6=0.4w;
+	bot y1=bot y5=bot y7=0;
+	top y2=top y4=x_ht;
 	top y3=x_ht+o;
-	y6=0.5x_ht;
-	dotdraw z1--z6--z2;
+	y6=0.525x_ht;
+	dotdraw z1--z6--z2--z4;
+	dotdraw z5--z1--z7;
 	interdotdraw z3{left}..z6{down};
 	charanchortops_[charcode]=(.5w,h);
 	adjustwidth(xgap#,xgap#);
@@ -3064,9 +3065,9 @@ elseif sset=2:
 elseif sset=3:
 	clpchar("s",4.5u#,x_ht#,0);
 	pickup cornerpen;
-	x1=x2=x8=0.15w;
+	x1=x2=x8=0.2w;
 	x3=x5=x6=0.5w;
-	x4=x7=x9=0.85w;
+	x4=x7=x9=0.8w;
 	bot y3=-o;
 	top y6=x_ht+o;
 	y1=0.2x_ht;
@@ -3105,14 +3106,16 @@ if (sset=1) or (sset=2):
 elseif sset=3:
 	clpchar("t",4.5u#,ht#,0);
 	pickup cornerpen;
-	x2=x3=x1=0.5w;
-	x5=0.2w;
-	x4=x6=0.8w;
+	x2=x3=x1=0.45w;
+	x5=0.15w;
+	x6=x7=0.75w;
+	x4=x1+0.5(x7-x1);
 	y3=h;
-	bot y4=0;
-	y1=0.6(h-x_ht);
+	bot y4= bot y7=0;
+	y1=0.5(h-x_ht);
 	y2=y5=y6=x_ht-0.5px;
-	dotdraw z4{left}..z1{up}--z2--z3;
+	interdotdraw z7--z4{left}..z1{up}--z2;
+	dotdraw z2--z3;
 	dotdraw z5--z2--z6;
 	charanchortops_[charcode]=(.5w,h);
 	charanchorbots_[charcode]=(.5w,0);

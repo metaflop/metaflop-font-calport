@@ -46,5 +46,8 @@ sset:=3;                    % stylistic set 1=normal / 2= simplified / 3=monospa
 
 input fontbase;             % now generate the font
 input glyphs_preview;
-input ligkerndef;
+if (sset=1) or (sset=2):
+	input ligkerndef;
+elseif sset=3:
+fi
 bye;                
