@@ -177,7 +177,7 @@ elseif sset=3:
 	top y2=top y4=h;
 	dotdraw z1--z2;
 	dotdraw z3--z4;
-	charanchortops_[charcode]=(.6w,x_ht);
+	charanchortops_[charcode]=(.47w,x_ht);
 	adjustwidth(xgap#,xgap#);
 	penlabels(range 1 thru 150);
 	endchar;
@@ -1257,9 +1257,9 @@ if (sset=1) or (sset=2):
 	x1=0.1w;
 	x2=0.9w;
 	x3=x4=x5=0.5w;
-	y1=y2=y5=0.5h;
-	top y3=0.82h;
-	bot y4=0.18h;
+	y1=y2=y5=0.45h;
+	top y3=0.775h;
+	bot y4=0.125h;
 	dotdraw z1--z5--z2;
 	dotdraw z3--z5--z4;
 	adjustwidth(xgap#,xgap#);
@@ -1271,9 +1271,9 @@ elseif sset=3:
 	x1=0.15w;
 	x2=0.85w;
 	x3=x4=x5=0.5w;
-	y1=y2=y5=0.5h;
-	top y3=0.82h;
-	bot y4=0.18h;
+	y1=y2=y5=0.45h;
+	top y3=0.775h;
+	bot y4=0.125h;
 	dotdraw z1--z5--z2;
 	dotdraw z3--z5--z4;
 	adjustwidth(xgap#,xgap#);
@@ -1308,21 +1308,21 @@ fi
 
 % hyphen
 if (sset=1) or (sset=2):
-	clpchar("hyphen",4u#,x_ht#,0);
+	clpchar("hyphen",4u#,ht#,0);
 	pickup cornerpen;
 	x1=0.1w;
 	x2=0.9w;
-	y1=y2=0.5x_ht;
+	y1=y2=0.45h;
 	dotdraw z1--z2;
 	adjustwidth(xgap#,xgap#);
 	penlabels(range 1 thru 150);
 	endchar;
 elseif sset=3:
-	clpchar("hyphen",4.5u#,x_ht#,0);
+	clpchar("hyphen",4.5u#,ht#,0);
 	pickup cornerpen;
 	x1=0.2w;
 	x2=0.8w;
-	y1=y2=0.5x_ht;
+	y1=y2=0.45h;
 	dotdraw z1--z2;
 	adjustwidth(xgap#,xgap#);
 	penlabels(range 1 thru 150);
@@ -1743,72 +1743,144 @@ elseif sset=3:
 	endchar;
 fi
 
-% var
+% colon
+if (sset=1) or (sset=2):
+	clpchar("colon",1.5u#,x_ht#,0);
+	pickup cornerpen;
+	x1=x2=0.5w;
+	bot y1=0;
+	top y2=h;
+	dotdraw z1;
+	dotdraw z2;
+	adjustwidth(xgap#,xgap#);
+	penlabels(range 1 thru 150);
+	endchar;
+elseif sset=3:
+	clpchar("colon",4.5u#,x_ht#,0);
+	pickup cornerpen;
+	x1=x2=0.5w;
+	bot y1=0;
+	top y2=h;
+	dotdraw z1;
+	dotdraw z2;
+	adjustwidth(xgap#,xgap#);
+	penlabels(range 1 thru 150);
+	endchar;
+fi
 
-clpchar("colon",1.5u#,x_ht#,0);
-pickup cornerpen;
-x1=x2=0.5w;
-bot y1=0;
-top y2=h;
-dotdraw z1;
-dotdraw z2;
-adjustwidth(xgap#,xgap#);
-penlabels(range 1 thru 150);
-endchar;
+% semicolon
+if (sset=1) or (sset=2):
+	clpchar("semicolon",1.5u#,x_ht#,desc_depth#);
+	pickup cornerpen;
+	x1=x3=0.5w;
+	x2=0.15w;
+	bot y1=0;
+	y2=-0.65d;
+	top y3=h;
+	dotdraw z1--z2;
+	dotdraw z3;
+	adjustwidth(xgap#,xgap#);
+	penlabels(range 1 thru 150);
+	endchar;
+elseif sset=3:
+	clpchar("semicolon",4.5u#,x_ht#,desc_depth#);
+	pickup cornerpen;
+	x1=x3=0.5w;
+	x2=0.383w;
+	bot y1=0;
+	y2=-0.65d;
+	top y3=h;
+	dotdraw z1--z2;
+	dotdraw z3;
+	adjustwidth(xgap#,xgap#);
+	penlabels(range 1 thru 150);
+	endchar;
+fi
 
-clpchar("semicolon",1.5u#,x_ht#,desc_depth#);
-pickup cornerpen;
-x1=x3=0.5w;
-x2=0.15w;
-bot y1=0;
-y2=-0.65d;
-top y3=h;
-dotdraw z1--z2;
-dotdraw z3;
-adjustwidth(xgap#,xgap#);
-penlabels(range 1 thru 150);
-endchar;
+% less
+if (sset=1) or (sset=2):
+	clpchar("less",4u#,ht#,0);
+	pickup cornerpen;
+	x1=x3=0.8w;
+	x2=0.15w;
+	bot y1=0.125h;
+	y2=0.45h;
+	top y3=0.775h;
+	dotdraw z1--z2--z3;
+	charanchortops_[charcode]=(.5w,h);
+	adjustwidth(xgap#,xgap#);
+	penlabels(range 1 thru 150);
+	endchar;
+elseif sset=3:
+	clpchar("less",4.5u#,ht#,0);
+	pickup cornerpen;
+	x1=x3=0.765w;
+	x2=0.185w;
+	bot y1=0.125h;
+	y2=0.45h;
+	top y3=0.775h;
+	dotdraw z1--z2--z3;
+	adjustwidth(xgap#,xgap#);
+	penlabels(range 1 thru 150);
+	endchar;
+fi
 
-clpchar("less",4u#,x_ht#,0);
-pickup cornerpen;
-x1=x3=0.8w;
-x2=0.15w;
-bot y1=0;
-y2=0.5x_ht;
-top y3=x_ht;
-dotdraw z1--z2--z3;
-charanchortops_[charcode]=(.5w,h);
-adjustwidth(xgap#,xgap#);
-penlabels(range 1 thru 150);
-endchar;
+% equal
+if (sset=1) or (sset=2):
+	clpchar("equal",4u#,ht#,0);
+	pickup cornerpen;
+	x1=x3=0.1w;
+	x2=x4=0.9w;
+	y1=y2=0.323h;
+	y3=y4=0.577h;
+	dotdraw z1--z2;
+	dotdraw z3--z4;
+	adjustwidth(xgap#,xgap#);
+	penlabels(range 1 thru 150);
+	endchar;
+elseif sset=3:
+	clpchar("equal",4.5u#,ht#,0);
+	pickup cornerpen;
+	x1=x3=0.175w;
+	x2=x4=0.825w;
+	y1=y2=0.323h;
+	y3=y4=0.577h;
+	dotdraw z1--z2;
+	dotdraw z3--z4;
+	adjustwidth(xgap#,xgap#);
+	penlabels(range 1 thru 150);
+	endchar;
+fi
 
-clpchar("equal",4u#,x_ht#,0);
-pickup cornerpen;
-x1=x3=0.1w;
-x2=x4=0.9w;
-y1=y2=0.3x_ht;
-y3=y4=0.7x_ht;
-dotdraw z1--z2;
-dotdraw z3--z4;
-adjustwidth(xgap#,xgap#);
-penlabels(range 1 thru 150);
-endchar;
-
-clpchar("greater",4u#,x_ht#,0);
-pickup cornerpen;
-x1=x3=0.2w;
-x2=0.85w;
-bot y1=0;
-y2=0.5x_ht;
-top y3=x_ht;
-dotdraw z1--z2--z3;
-charanchortops_[charcode]=(.5w,h);
-adjustwidth(xgap#,xgap#);
-penlabels(range 1 thru 150);
-endchar;
+% greater
+if (sset=1) or (sset=2):
+	clpchar("greater",4u#,ht#,0);
+	pickup cornerpen;
+	x1=x3=0.2w;
+	x2=0.85w;
+	bot y1=0.125h;
+	y2=0.45h;
+	top y3=0.775h;
+	dotdraw z1--z2--z3;
+	adjustwidth(xgap#,xgap#);
+	penlabels(range 1 thru 150);
+	endchar;
+elseif sset=3:
+	clpchar("greater",4.5u#,ht#,0);
+	pickup cornerpen;
+	x1=x3=0.235w;
+	x2=0.815w;
+	bot y1=0.125h;
+	y2=0.45h;
+	top y3=0.775h;
+	dotdraw z1--z2--z3;
+	adjustwidth(xgap#,xgap#);
+	penlabels(range 1 thru 150);
+	endchar;
+fi
 
 % question
-if sset=1:
+if (sset=1) or (sset=3):
 	clpchar("question",4.5u#,ht#,0);
 	pickup cornerpen;
 	x1=x5=x8=0.5w;
@@ -1881,6 +1953,28 @@ elseif sset=2:
 	y6=y8=0.5(y7+y9);
 	dotdraw z1--z2;
 	interdotdraw z2--z3{left}..z4{down}..z5{right}--z1;
+	interdotdraw z1{right}..z6..z7{left}..z8{down}..z9{right};
+	charanchortops_[charcode]=(.55w,h);
+	adjustwidth(xgap#,xgap#);
+	penlabels(range 1 thru 150);
+	endchar;
+elseif sset=3:
+	clpchar("at",4.5u#,x_ht#,0);
+	pickup cornerpen;
+	x1=x2=x10=0.75w;
+	x3=x5=x4+0.5(x10-x4);
+	x4=0.25w;
+	x6=0.975w;
+	x7=x9=0.525w;
+	x8=0.025w;
+	bot y1=bot y5=0;
+	y2=y3=0.8h;
+	y4=y10=0.5(y2-y1)+0.5px;
+	y7=1.15h;
+	y9=-0.3h;
+	y6=y8=0.5(y7+y9);
+	dotdraw z1--z2;
+	interdotdraw z10{up}..z3{left}..z4{down}..z5{right}..cycle;
 	interdotdraw z1{right}..z6..z7{left}..z8{down}..z9{right};
 	charanchortops_[charcode]=(.55w,h);
 	adjustwidth(xgap#,xgap#);
@@ -2058,7 +2152,7 @@ elseif sset=3:
 	y5=0.5h;
 	dotdraw z1--z2;
 	interdotdraw z2--z4{right}..z5{down}..z3{left}--z1;
-	charanchortops_[charcode]=(.5w,h);
+	charanchortops_[charcode]=(.45w,h);
 	adjustwidth(xgap#,xgap#);
 	penlabels(range 1 thru 150);
 	endchar;
@@ -2308,7 +2402,7 @@ elseif sset=3:
 	clpchar("L",4.5u#,ht#,0);
 	pickup cornerpen;
 	x1=x2=0.175w;
-	x3=0.85w;
+	x3=0.9w;
 	bot y2=bot y3=0;
 	top y1=h;
 	dotdraw z1--z2--z3;
@@ -2837,77 +2931,159 @@ elseif sset=3:
 	endchar;
 	fi
 
-% var
+% bracketleft
+if (sset=1) or (sset=2):
+	clpchar("bracketleft",2u#,ht#,0);
+	pickup cornerpen;
+	x1=x3=0.95w;
+	x4=x7=0.4w;
+	y1=y4=-0.05h;
+	y3=y7=1.05h;
+	dotdraw z3--z7--z4--z1;
+	adjustwidth(xgap#,xgap#);
+	penlabels(range 1 thru 150);
+	endchar;
+elseif sset=3:
+	clpchar("bracketleft",4.5u#,ht#,0);
+	pickup cornerpen;
+	x1=x3=0.695w;
+	x4=x7=0.45w;
+	y1=y4=-0.05h;
+	y3=y7=1.05h;
+	dotdraw z3--z7--z4--z1;
+	adjustwidth(xgap#,xgap#);
+	penlabels(range 1 thru 150);
+	endchar;
+fi
 
-clpchar("bracketleft",2u#,ht#,0);
-pickup cornerpen;
-x1=x3=0.95w;
-x4=x7=0.4w;
-y1=y4=-0.05h;
-y3=y7=1.05h;
-dotdraw z3--z7--z4--z1;
-adjustwidth(xgap#,xgap#);
-penlabels(range 1 thru 150);
-endchar;
+% backslash
+if (sset=1) or (sset=2):
+	clpchar("backslash",2.5u#,ht#,0);
+	pickup cornerpen;
+	x1=0.05w;
+	x2=0.95w;
+	y1=1.1h;
+	y2=-0.1h;
+	dotdraw z1--z2;
+	charanchortops_[charcode]=(.5w,h);
+	adjustwidth(xgap#,xgap#);
+	penlabels(range 1 thru 150);
+	endchar;
+elseif sset=3:
+	clpchar("backslash",4.5u#,ht#,0);
+	pickup cornerpen;
+	x1=0.25w;
+	x2=0.75w;
+	y1=1.1h;
+	y2=-0.1h;
+	dotdraw z1--z2;
+	charanchortops_[charcode]=(.5w,h);
+	adjustwidth(xgap#,xgap#);
+	penlabels(range 1 thru 150);
+	endchar;
+fi
 
-clpchar("backslash",2.5u#,ht#,0);
-pickup cornerpen;
-x1=0.05w;
-x2=0.95w;
-y1=1.1h;
-y2=-0.1h;
-dotdraw z1--z2;
-charanchortops_[charcode]=(.5w,h);
-adjustwidth(xgap#,xgap#);
-penlabels(range 1 thru 150);
-endchar;
+% bracketright
+if (sset=1) or (sset=2):
+	clpchar("bracketright",2u#,ht#,0);
+	pickup cornerpen;
+	x1=x3=0.05w;
+	x4=x7=0.6w;
+	y1=y4=-0.05h;
+	y3=y7=1.05h;
+	dotdraw z3--z7--z4--z1;
+	adjustwidth(xgap#,xgap#);
+	penlabels(range 1 thru 150);
+	endchar;
+elseif sset=3:
+	clpchar("bracketright",4.5u#,ht#,0);
+	pickup cornerpen;
+	x1=x3=0.305w;
+	x4=x7=0.55w;
+	y1=y4=-0.05h;
+	y3=y7=1.05h;
+	dotdraw z3--z7--z4--z1;
+	adjustwidth(xgap#,xgap#);
+	penlabels(range 1 thru 150);
+	endchar;
+fi
 
-clpchar("bracketright",2u#,ht#,0);
-pickup cornerpen;
-x1=x3=0.05w;
-x4=x7=0.6w;
-y1=y4=-0.05h;
-y3=y7=1.05h;
-dotdraw z3--z7--z4--z1;
-adjustwidth(xgap#,xgap#);
-penlabels(range 1 thru 150);
-endchar;
+% asciicircum
+if (sset=1) or (sset=2):
+	clpchar("asciicircum",4u#,ht#,0); 
+	pickup cornerpen;
+	x1=0.1w;
+	x2=0.9w;
+	x3=0.5w;
+	y1=y2=.6h;
+	top y3=h;
+	dotdraw z1--z3--z2;
+	adjustwidth(xgap#,xgap#);
+	penlabels(range 1 thru 150);
+	endchar;
+elseif sset=3:
+	clpchar("asciicircum",4.5u#,ht#,0); 
+	pickup cornerpen;
+	x1=0.15w;
+	x2=0.85w;
+	x3=0.5w;
+	y1=y2=.6h;
+	top y3=h;
+	dotdraw z1--z3--z2;
+	adjustwidth(xgap#,xgap#);
+	penlabels(range 1 thru 150);
+	endchar;
+fi
 
-clpchar("asciicircum",4u#,ht#,0); 
-pickup cornerpen;
-x1=0.1w;
-x2=0.9w;
-x3=0.5w;
-y1=y2=.6h;
-top y3=h;
-dotdraw z1--z3--z2;
-charanchortops_[charcode]=(.5w,x_ht);
-adjustwidth(xgap#,xgap#);
-penlabels(range 1 thru 150);
-endchar;
+% underscore
+if (sset=1) or (sset=2):
+	clpchar("underscore",5u#,x_ht#,0);
+	pickup cornerpen;
+	x1=-0.5px;
+	x2=w+0.5px;
+	y1=y2=-0.2x_ht;
+	dotdraw z1--z2;
+	adjustwidth(xgap#,xgap#);
+	penlabels(range 1 thru 150);
+	endchar;
+elseif sset=3:
+	clpchar("underscore",4.5u#,x_ht#,0);
+	pickup cornerpen;
+	x1=0;
+	x2=w;
+	y1=y2=-0.2x_ht;
+	dotdraw z1--z2;
+	adjustwidth(xgap#,xgap#);
+	penlabels(range 1 thru 150);
+	endchar;
+fi
 
-clpchar("underscore",5u#,x_ht#,0);
-pickup cornerpen;
-x1=-0.5px;
-x2=w+0.5px;
-y1=y2=-0.2x_ht;
-dotdraw z1--z2;
-adjustwidth(xgap#,xgap#);
-penlabels(range 1 thru 150);
-endchar;
-
-clpchar("quoteleft",1.5u#,ht#,0);
-pickup cornerpen;
-x1=0.35w;
-x2=0.7w;
-y1=0.7h;
-top y2=h;
-dotdraw z1--z2;
-adjustwidth(xgap#,xgap#);
-penlabels(range 1 thru 150);
-endchar;
-
-% lower case
+% quoteleft
+if (sset=1) or (sset=2):
+	clpchar("quoteleft",1.5u#,ht#,0);
+	pickup cornerpen;
+	x1=0.35w;
+	x2=0.7w;
+	y1=0.7h;
+	top y2=h;
+	dotdraw z1--z2;
+	charanchortoprights_[charcode]=(.5w,ht);
+	adjustwidth(xgap#,xgap#);
+	penlabels(range 1 thru 150);
+	endchar;
+elseif sset=3:
+	clpchar("quoteleft",4.5u#,ht#,0);
+	pickup cornerpen;
+	x1=0.438w;
+	x2=0.55w;
+	y1=0.7h;
+	top y2=h;
+	dotdraw z1--z2;
+	charanchortoprights_[charcode]=(.5w,ht);
+	adjustwidth(xgap#,xgap#);
+	penlabels(range 1 thru 150);
+	endchar;
+fi
 
 % a
 if (sset=1) or (sset=3):
@@ -3367,19 +3543,35 @@ elseif sset=2:
 fi
 
 % o
-clpchar("o",4.25u#,x_ht#,0);
-pickup cornerpen;
-x1=0.9w;
-x2=x4=0.5w;
-x3=0.1w;
-top y2=x_ht+o;
-y1=y3=0.5x_ht;
-bot y4=-o;
-interdotdraw z2{left}..z3{down}..z4{right}..z1{up}..cycle;
-charanchortops_[charcode]=(.5w,h);
-adjustwidth(xgap#,xgap#);
-penlabels(range 1 thru 150);
-endchar;
+if (sset=1) or (sset=2):
+	clpchar("o",4.25u#,x_ht#,0);
+	pickup cornerpen;
+	x1=0.9w;
+	x2=x4=0.5w;
+	x3=0.1w;
+	top y2=x_ht+o;
+	y1=y3=0.5x_ht;
+	bot y4=-o;
+	interdotdraw z2{left}..z3{down}..z4{right}..z1{up}..cycle;
+	charanchortops_[charcode]=(.5w,h);
+	adjustwidth(xgap#,xgap#);
+	penlabels(range 1 thru 150);
+	endchar;
+elseif sset=3:
+	clpchar("o",4.5u#,x_ht#,0);
+	pickup cornerpen;
+	x1=0.875w;
+	x2=x4=0.5w;
+	x3=0.125w;
+	top y2=x_ht+o;
+	y1=y3=0.5x_ht;
+	bot y4=-o;
+	interdotdraw z2{left}..z3{down}..z4{right}..z1{up}..cycle;
+	charanchortops_[charcode]=(.5w,h);
+	adjustwidth(xgap#,xgap#);
+	penlabels(range 1 thru 150);
+	endchar;
+fi
 
 % p
 if (sset=1) or (sset=3):
@@ -3803,112 +3995,233 @@ elseif sset=3:
 	endchar;
 fi
 
-% var
+% braceleft
+if (sset=1) or (sset=2):
+	clpchar("braceleft",2u#,ht#,0);
+	pickup cornerpen;
+	x1=x3=0.95w;
+	x2=0.25w;
+	x4=x5=x6=x7=0.5w;
+	y1=-0.05h;
+	y4=0.1h;
+	y5=0.4h;
+	y2=0.5h;
+	y6=0.6h;
+	y7=0.9h;
+	y3=1.05h;
+	interdotdraw z2--z5--z4..z1{right};
+	interdotdraw z2--z6--z7..z3{right};
+	adjustwidth(xgap#,xgap#);
+	penlabels(range 1 thru 150);
+	endchar;
+elseif sset=3:
+	clpchar("braceleft",4.5u#,ht#,0);
+	pickup cornerpen;
+	x1=x3=0.7w;
+	x2=0.385w;
+	x4=x5=x6=x7=0.5w;
+	y1=-0.05h;
+	y4=0.1h;
+	y5=0.4h;
+	y2=0.5h;
+	y6=0.6h;
+	y7=0.9h;
+	y3=1.05h;
+	interdotdraw z2--z5--z4..z1{right};
+	interdotdraw z2--z6--z7..z3{right};
+	adjustwidth(xgap#,xgap#);
+	penlabels(range 1 thru 150);
+	endchar;
+fi
 
-clpchar("braceleft",2u#,ht#,0);
-pickup cornerpen;
-x1=x3=0.95w;
-x2=0.25w;
-x4=x5=x6=x7=0.5w;
-y1=-0.05h;
-y4=0.1h;
-y5=0.4h;
-y2=0.5h;
-y6=0.6h;
-y7=0.9h;
-y3=1.05h;
-interdotdraw z2--z5--z4..z1{right};
-interdotdraw z2--z6--z7..z3{right};
-adjustwidth(xgap#,xgap#);
-penlabels(range 1 thru 150);
-endchar;
+% bar
+if (sset=1) or (sset=2):
+	clpchar("bar",2.5u#,ht#,0);
+	pickup cornerpen;
+	x1=x2=0.5w;
+	y1=1.1h;
+	y2=-0.1h;
+	dotdraw z1--z2;
+	adjustwidth(xgap#,xgap#);
+	penlabels(range 1 thru 150);
+	endchar;
+elseif sset=3:
+	clpchar("bar",4.5u#,ht#,0);
+	pickup cornerpen;
+	x1=x2=0.5w;
+	y1=1.1h;
+	y2=-0.1h;
+	dotdraw z1--z2;
+	adjustwidth(xgap#,xgap#);
+	penlabels(range 1 thru 150);
+	endchar;
+fi
 
-clpchar("bar",2.5u#,ht#,0);
-pickup cornerpen;
-x1=x2=0.5w;
-y1=1.1h;
-y2=-0.1h;
-dotdraw z1--z2;
-adjustwidth(xgap#,xgap#);
-penlabels(range 1 thru 150);
-endchar;
+% braceright
+if (sset=1) or (sset=2):
+	clpchar("braceright",2u#,ht#,0);
+	pickup cornerpen;
+	x1=x3=0.05w;
+	x2=0.75w;
+	x4=x5=x6=x7=0.5w;
+	y1=-0.05h;
+	y4=0.1h;
+	y5=0.4h;
+	y2=0.5h;
+	y6=0.6h;
+	y7=0.9h;
+	y3=1.05h;
+	interdotdraw z2--z5--z4..z1{left};
+	interdotdraw z2--z6--z7..z3{left};
+	adjustwidth(xgap#,xgap#);
+	penlabels(range 1 thru 150);
+	endchar;
+elseif sset=3:
+	clpchar("braceright",4.5u#,ht#,0);
+	pickup cornerpen;
+	x1=x3=0.3w;
+	x2=0.615w;
+	x4=x5=x6=x7=0.5w;
+	y1=-0.05h;
+	y4=0.1h;
+	y5=0.4h;
+	y2=0.5h;
+	y6=0.6h;
+	y7=0.9h;
+	y3=1.05h;
+	interdotdraw z2--z5--z4..z1{left};
+	interdotdraw z2--z6--z7..z3{left};
+	adjustwidth(xgap#,xgap#);
+	penlabels(range 1 thru 150);
+	endchar;
+fi
 
-clpchar("braceright",2u#,ht#,0);
-pickup cornerpen;
-x1=x3=0.05w;
-x2=0.75w;
-x4=x5=x6=x7=0.5w;
-y1=-0.05h;
-y4=0.1h;
-y5=0.4h;
-y2=0.5h;
-y6=0.6h;
-y7=0.9h;
-y3=1.05h;
-interdotdraw z2--z5--z4..z1{left};
-interdotdraw z2--z6--z7..z3{left};
-adjustwidth(xgap#,xgap#);
-penlabels(range 1 thru 150);
-endchar;
+% asciitilde
+if (sset=1) or (sset=2):
+	clpchar("asciitilde",4u#,x_ht#,0); 
+	pickup cornerpen;
+	x1=0.1w;
+	x2=0.9w;
+	x3=0.35w;
+	x4=0.65w;
+	y1=0.45h;
+	y4=0.425h;
+	y2=0.55h;
+	y3=0.575h;
+	interdotdraw z1..z3..z4..z2;
+	adjustwidth(xgap#,xgap#);
+	penlabels(range 1 thru 150);
+	endchar;
+elseif sset=3:
+	clpchar("asciitilde",4.5u#,x_ht#,0); 
+	pickup cornerpen;
+	x1=0.15w;
+	x2=0.85w;
+	x3=0.375w;
+	x4=0.625w;
+	y1=0.45h;
+	y4=0.425h;
+	y2=0.55h;
+	y3=0.575h;
+	interdotdraw z1..z3..z4..z2;
+	adjustwidth(xgap#,xgap#);
+	penlabels(range 1 thru 150);
+	endchar;
+fi
 
-clpchar("asciitilde",4u#,x_ht#,0); 
-pickup cornerpen;
-x1=0.1w;
-x2=0.9w;
-x3=0.35w;
-x4=0.65w;
-y1=0.45h;
-y4=0.425h;
-y2=0.55h;
-y3=0.575h;
-interdotdraw z1..z3..z4..z2;
-adjustwidth(xgap#,xgap#);
-penlabels(range 1 thru 150);
-endchar;
+% dash
+if (sset=1) or (sset=2):
+	clpchar("dash",4u#,ht#,0);
+	pickup cornerpen;
+	x1=0.1w;
+	x2=0.9w;
+	y1=y2=0.45h;
+	dotdraw z1--z2;
+	adjustwidth(xgap#,xgap#);
+	penlabels(range 1 thru 150);
+	endchar;
+elseif sset=3:
+	clpchar("dash",4.5u#,ht#,0);
+	pickup cornerpen;
+	x1=0.2w;
+	x2=0.8w;
+	y1=y2=0.45h;
+	dotdraw z1--z2;
+	adjustwidth(xgap#,xgap#);
+	penlabels(range 1 thru 150);
+	endchar;
+fi
 
-clpchar("dash",4u#,x_ht#,0);
-pickup cornerpen;
-x1=0.1w;
-x2=0.9w;
-y1=y2=0.5x_ht;
-dotdraw z1--z2;
-adjustwidth(xgap#,xgap#);
-penlabels(range 1 thru 150);
-endchar;
+% Lslash
+if (sset=1) or (sset=2):
+	clpchar("Lslash",4.25u#,ht#,0);
+	pickup cornerpen;
+	x1=x2=0.175w;
+	x3=0.95w;
+	x5=-0.05w;
+	x6=0.5w;
+	bot y2=bot y3=0;
+	top y1=h;
+	y5=0.35h;
+	y6=0.65h;
+	z4=whatever[z1,z2]=whatever[z5,z6];
+	dotdraw z1--z4--z2--z3;
+	dotdraw z5--z4--z6;
+	adjustwidth(xgap#,xgap#);
+	penlabels(range 1 thru 150);
+	endchar;
+elseif sset=3:
+	clpchar("Lslash",4.5u#,ht#,0);
+	pickup cornerpen;
+	x1=x2=0.175w;
+	x3=0.9w;
+	x5=-0.0275w;
+	x6=0.4775w;
+	bot y2=bot y3=0;
+	top y1=h;
+	y5=0.35h;
+	y6=0.65h;
+	z4=whatever[z1,z2]=whatever[z5,z6];
+	dotdraw z1--z4--z2--z3;
+	dotdraw z5--z4--z6;
+	adjustwidth(xgap#,xgap#);
+	penlabels(range 1 thru 150);
+	endchar;
+fi
 
-clpchar("Lslash",4.25u#,ht#,0);
-pickup cornerpen;
-x1=x2=0.175w;
-x3=0.95w;
-x5=-0.05w;
-x6=0.5w;
-bot y2=bot y3=0;
-top y1=h;
-y5=0.35h;
-y6=0.65h;
-z4=whatever[z1,z2]=whatever[z5,z6];
-dotdraw z1--z4--z2--z3;
-dotdraw z5--z4--z6;
-adjustwidth(xgap#,xgap#);
-penlabels(range 1 thru 150);
-endchar;
-
-clpchar("Eng",6u#,ht#,desc_depth#);
-pickup cornerpen;
-x1=x2=0.125w;
-x3=x4=0.875w;
-x5=0.55w;
-bot y1=bot y3=0;
-top y2=top y4=h;
-y5=-desc_depth;
-dotdraw z1--z2--z3--z4;
-dotdraw z3{down}..z5{left};
-adjustwidth(xgap#,xgap#);
-penlabels(range 1 thru 150);
-endchar;
+% Eng
+if (sset=1) or (sset=2):
+	clpchar("Eng",6u#,ht#,desc_depth#);
+	pickup cornerpen;
+	x1=x2=0.125w;
+	x3=x4=0.875w;
+	x5=0.55w;
+	bot y1=bot y3=0;
+	top y2=top y4=h;
+	y5=-desc_depth;
+	dotdraw z1--z2--z3--z4;
+	dotdraw z3{down}..z5{left};
+	adjustwidth(xgap#,xgap#);
+	penlabels(range 1 thru 150);
+	endchar;
+elseif sset=3:
+	clpchar("Eng",4.5u#,ht#,desc_depth#);
+	pickup cornerpen;
+	x1=x2=0.15w;
+	x3=x4=0.85w;
+	x5=0.425w;
+	bot y1=bot y3=0;
+	top y2=top y4=h;
+	y5=-desc_depth;
+	dotdraw z1--z2--z3--z4;
+	dotdraw z3{down}..z5{left};
+	adjustwidth(xgap#,xgap#);
+	penlabels(range 1 thru 150);
+	endchar;
+fi
 
 % dcroat
-if sset=1:
+if (sset=1) or (sset=3):
 	clpchar("dcroat",4.5u#,ht#,0);
 	pickup cornerpen;
 	x1=x2=x4=x8=0.85w;
@@ -3948,71 +4261,144 @@ elseif sset=2:
 	endchar;
 fi
 
-clpchar("Eth",5u#,ht#,0);
-pickup cornerpen;
-x1=x2=x6=0.15w;
-x3=x4=0.425w;
-x5=0.925w;
-x7=-0.075w;
-x8=0.5w;
-bot y1=bot y3=0;
-top y2=top y4=h;
-y5=y6=y7=y8=0.5h;
-dotdraw z1--z6--z2;
-dotdraw z7--z6--z8;
-interdotdraw z2--z4{right}..z5{down}..z3{left}--z1;
-charanchortops_[charcode]=(.5w,h);
-adjustwidth(xgap#,xgap#);
-penlabels(range 1 thru 150);
-endchar;
+% Eth
+if (sset=1) or (sset=2):
+	clpchar("Eth",5u#,ht#,0);
+	pickup cornerpen;
+	x1=x2=x6=0.15w;
+	x3=x4=0.425w;
+	x5=0.925w;
+	x7=-0.075w;
+	x8=0.5w;
+	bot y1=bot y3=0;
+	top y2=top y4=h;
+	y5=y6=y7=y8=0.5h;
+	dotdraw z1--z6--z2;
+	dotdraw z7--z6--z8;
+	interdotdraw z2--z4{right}..z5{down}..z3{left}--z1;
+	charanchortops_[charcode]=(.5w,h);
+	adjustwidth(xgap#,xgap#);
+	penlabels(range 1 thru 150);
+	endchar;
+elseif sset=3:
+	clpchar("Eth",4.5u#,ht#,0);
+	pickup cornerpen;
+	x1=x2=x6=0.15w;
+	x3=x4=0.35w;
+	x5=0.925w;
+	x7=-0.1w;
+	x8=0.535w;
+	bot y1=bot y3=0;
+	top y2=top y4=h;
+	y5=y6=y7=y8=0.5h;
+	dotdraw z1--z6--z2;
+	dotdraw z7--z6--z8;
+	interdotdraw z2--z4{right}..z5{down}..z3{left}--z1;
+	charanchortops_[charcode]=(.5w,h);
+	adjustwidth(xgap#,xgap#);
+	penlabels(range 1 thru 150);
+	endchar;
+fi
 
 % "OE":
 
-clpchar("Oslash",6u#,ht#,0);
-pickup cornerpen;
-x1=0.95w;
-x2=x4=0.5w;
-x3=0.05w;
-x5=0+0.5px;
-x6=w-0.5px;
-top y2=h+o;
-y1=y3=0.5h;
-bot y4=-o;
-bot y5=0;
-top y6=h;
-z10=(z3{down}..z4{right}) intersectionpoint (z5--z6);
-z11=(z1{up}..z2{left}) intersectionpoint (z5--z6);
-path p;
-p:=z10..z4{right}..z1{up}..z11..z2{left}..z3{down}..cycle;
-interdotdraw subpath(0,3) of p;
-interdotdraw subpath(3,6) of p;
-dotdraw z5--z10--z11--z6;
-adjustwidth(xgap#,xgap#);
-penlabels(range 1 thru 150);
-endchar;
+% Oslash
+if (sset=1) or (sset=2):
+	clpchar("Oslash",6u#,ht#,0);
+	pickup cornerpen;
+	x1=0.95w;
+	x2=x4=0.5w;
+	x3=0.05w;
+	x5=0+0.5px;
+	x6=w-0.5px;
+	top y2=h+o;
+	y1=y3=0.5h;
+	bot y4=-o;
+	bot y5=0;
+	top y6=h;
+	z10=(z3{down}..z4{right}) intersectionpoint (z5--z6);
+	z11=(z1{up}..z2{left}) intersectionpoint (z5--z6);
+	path p;
+	p:=z10..z4{right}..z1{up}..z11..z2{left}..z3{down}..cycle;
+	interdotdraw subpath(0,3) of p;
+	interdotdraw subpath(3,6) of p;
+	dotdraw z5--z10--z11--z6;
+	adjustwidth(xgap#,xgap#);
+	penlabels(range 1 thru 150);
+	endchar;
+elseif sset=3:
+	clpchar("Oslash",4.5u#,ht#,0);
+	pickup cornerpen;
+	x1=0.95w;
+	x2=x4=0.5w;
+	x3=0.05w;
+	x5=0+0.5px;
+	x6=w-0.5px;
+	top y2=h+o;
+	y1=y3=0.5h;
+	bot y4=-o;
+	bot y5=0;
+	top y6=h;
+	z10=(z3{down}..z4{right}) intersectionpoint (z5--z6);
+	z11=(z1{up}..z2{left}) intersectionpoint (z5--z6);
+	path p;
+	p:=z10..z4{right}..z1{up}..z11..z2{left}..z3{down}..cycle;
+	interdotdraw subpath(0,3) of p;
+	interdotdraw subpath(3,6) of p;
+	dotdraw z5--z10--z11--z6;
+	adjustwidth(xgap#,xgap#);
+	penlabels(range 1 thru 150);
+	endchar;
+fi
 
-clpchar("oslash",4.25u#,x_ht#,0);
-pickup cornerpen;
-x1=0.9w;
-x2=x4=0.5w;
-x3=0.1w;
-x5=0.05w+0.5px;
-x6=0.95w-0.5px;
-top y2=x_ht+o;
-y1=y3=0.5x_ht;
-bot y4=-o;
-bot y5=0;
-top y6=h;
-z10=(z3{down}..z4{right}) intersectionpoint (z5--z6);
-z11=(z1{up}..z2{left}) intersectionpoint (z5--z6);
-path p;
-p:=z10..z4{right}..z1{up}..z11..z2{left}..z3{down}..cycle;
-interdotdraw subpath(0,3) of p;
-interdotdraw subpath(3,6) of p;
-dotdraw z5--z10--z11--z6;
-adjustwidth(xgap#,xgap#);
-penlabels(range 1 thru 150);
-endchar;
+% oslash
+if (sset=1) or (sset=2):
+	clpchar("oslash",4.25u#,x_ht#,0);
+	pickup cornerpen;
+	x1=0.9w;
+	x2=x4=0.5w;
+	x3=0.1w;
+	x5=0.05w+0.5px;
+	x6=0.95w-0.5px;
+	top y2=x_ht+o;
+	y1=y3=0.5x_ht;
+	bot y4=-o;
+	bot y5=0;
+	top y6=h;
+	z10=(z3{down}..z4{right}) intersectionpoint (z5--z6);
+	z11=(z1{up}..z2{left}) intersectionpoint (z5--z6);
+	path p;
+	p:=z10..z4{right}..z1{up}..z11..z2{left}..z3{down}..cycle;
+	interdotdraw subpath(0,3) of p;
+	interdotdraw subpath(3,6) of p;
+	dotdraw z5--z10--z11--z6;
+	adjustwidth(xgap#,xgap#);
+	penlabels(range 1 thru 150);
+	endchar;
+elseif sset=3:
+	clpchar("oslash",4.5u#,x_ht#,0);
+	pickup cornerpen;
+	x1=0.875w;
+	x2=x4=0.5w;
+	x3=0.125w;
+	x5=0.05w+0.5px;
+	x6=0.95w-0.5px;
+	top y2=x_ht+o;
+	y1=y3=0.5x_ht;
+	bot y4=-o;
+	bot y5=0;
+	top y6=h;
+	z10=(z3{down}..z4{right}) intersectionpoint (z5--z6);
+	z11=(z1{up}..z2{left}) intersectionpoint (z5--z6);
+	path p;
+	p:=z10..z4{right}..z1{up}..z11..z2{left}..z3{down}..cycle;
+	interdotdraw subpath(0,3) of p;
+	interdotdraw subpath(3,6) of p;
+	dotdraw z5--z10--z11--z6;
+	adjustwidth(xgap#,xgap#);
+	penlabels(range 1 thru 150);
+	endchar;
+fi
 
 clpchar("section",4.25u#,ht#,desc_depth#);
 pickup cornerpen;
@@ -4034,26 +4420,48 @@ adjustwidth(xgap#,xgap#);
 penlabels(range 1 thru 150);
 endchar;
 
-clpchar("lslash",2u#,ht#,0);
-pickup cornerpen;
-x1=x2=x5=0.5w;
-x3=0;
-x4=w;
-bot y1=0;
-y2=h;
-y3=0.6x_ht;
-y4=x_ht;
-z5=whatever[z3,z4];
-dotdraw z1--z5--z2;
-dotdraw z3--z5--z4;
-charanchortops_[charcode]=(.5w,h);
-charanchortoprights_[charcode]=(1.2w,h);
-adjustwidth(xgap#,xgap#);
-penlabels(range 1 thru 150);
-endchar;
+% lslash
+if (sset=1) or (sset=2):
+	clpchar("lslash",2u#,ht#,0);
+	pickup cornerpen;
+	x1=x2=x5=0.5w;
+	x3=0;
+	x4=w;
+	bot y1=0;
+	y2=h;
+	y3=0.6x_ht;
+	y4=x_ht;
+	z5=whatever[z3,z4];
+	dotdraw z1--z5--z2;
+	dotdraw z3--z5--z4;
+	charanchortops_[charcode]=(.5w,h);
+	charanchortoprights_[charcode]=(1.2w,h);
+	adjustwidth(xgap#,xgap#);
+	penlabels(range 1 thru 150);
+	endchar;
+elseif sset=3:
+	clpchar("lslash",4.5u#,ht#,0);
+	pickup cornerpen;
+	x1=x2=x8=0.525w;
+	x3=x4=0.15w;
+	x5=0.9w;
+	x6=0.3w;
+	x7=0.75w;
+	bot y1=bot y4=bot y5=0;
+	top y2=top y3=h;
+	y6=0.6x_ht;
+	y7=x_ht;
+	z8=whatever[z6,z7];
+	dotdraw z1--z2--z3;
+	dotdraw z4--z1--z5;
+	dotdraw z6--z8--z7;
+	adjustwidth(xgap#,xgap#);
+	penlabels(range 1 thru 150);
+	endchar;
+fi
 
 % eng
-if sset=1:
+if (sset=1) or (sset=3):
 	clpchar("eng",4.5u#,x_ht#,desc_depth#);
 	pickup cornerpen;
 	x1=x2=x7=0.15w;
@@ -4086,20 +4494,35 @@ elseif sset=2:
 	endchar;
 fi
 
-clpchar("exclamdown",2u#,ht#,desc_depth#);
-pickup cornerpen;
-x1=x5=x6=0.5w;
-top y1=x_ht;
-y5=x_ht-0.3h;
-bot y6=y5-0.7h;
-dotdraw z1;
-dotdraw z5--z6;
-adjustwidth(xgap#,xgap#);
-penlabels(range 1 thru 150);
-endchar;
+% exclamdown
+if (sset=1) or (sset=2):
+	clpchar("exclamdown",2u#,ht#,desc_depth#);
+	pickup cornerpen;
+	x1=x5=x6=0.5w;
+	top y1=x_ht;
+	y5=x_ht-0.3h;
+	bot y6=y5-0.7h;
+	dotdraw z1;
+	dotdraw z5--z6;
+	adjustwidth(xgap#,xgap#);
+	penlabels(range 1 thru 150);
+	endchar;
+elseif sset=3:
+	clpchar("exclamdown",4.5u#,ht#,desc_depth#);
+	pickup cornerpen;
+	x1=x5=x6=0.5w;
+	top y1=x_ht;
+	y5=x_ht-0.3h;
+	bot y6=y5-0.7h;
+	dotdraw z1;
+	dotdraw z5--z6;
+	adjustwidth(xgap#,xgap#);
+	penlabels(range 1 thru 150);
+	endchar;
+fi
 
 % questiondown
-if sset=1:
+if (sset=1) or (sset=3):
 	clpchar("questiondown",4.5u#,ht#,desc_depth#);
 	pickup cornerpen;
 	x1=x5=x8=0.5w;
@@ -4153,29 +4576,52 @@ adjustwidth(xgap#,xgap#);
 penlabels(range 1 thru 150);
 endchar;
 
-clpchar("eth",4.25u#,ht#,0);
-pickup cornerpen;
-x1=0.9w;
-x2=x4=0.5w;
-x3=0.1w;
-x5=0.35w;
-x6=0.4w;
-x7=0.875w;
-x9=0.875w;
-top y2=x_ht+o;
-y1=y3=0.5x_ht;
-bot y4=-o;
-y5=h;
-y6=0.75h;
-y7=0.925h;
-y9=0.8x_ht;
-z8=(z1{up}..z5) intersectionpoint (z6--z7);
-interdotdraw z9--z2{left}..z3{down}..z4{right}..z1{up}..z9;
-dotdraw z9..z8..z5;
-dotdraw z6--z8--z7;
-adjustwidth(xgap#,xgap#);
-penlabels(range 1 thru 150);
-endchar;
+% eth
+if (sset=1) or (sset=2):
+	clpchar("eth",4.25u#,ht#,0);
+	pickup cornerpen;
+	x1=0.9w;
+	x2=x4=0.5w;
+	x3=0.1w;
+	x5=x6=0.45w;
+	x7=0.9w;
+	top y2=x_ht+o;
+	y1=0.6x_ht;
+	y3=0.5x_ht;
+	bot y4=-o;
+	y5=h;
+	y6=0.75h;
+	y7=0.925h;
+	z8=(z1{up}..z5) intersectionpoint (z6--z7);
+	interdotdraw z1..z2{left}..z3{down}..z4{right}..z1{up};
+	dotdraw z1{up}..z8..z5;
+	dotdraw z6--z8--z7;
+	adjustwidth(xgap#,xgap#);
+	penlabels(range 1 thru 150);
+	endchar;
+elseif sset=3:
+	clpchar("eth",4.5u#,ht#,0);
+	pickup cornerpen;
+	x1=0.875w;
+	x2=x4=0.5w;
+	x3=0.125w;
+	x5=x6=0.45w;
+	x7=0.875w;
+	top y2=x_ht+o;
+	y1=0.6x_ht;
+	y3=0.5x_ht;
+	bot y4=-o;
+	y5=h;
+	y6=0.75h;
+	y7=0.925h;
+	z8=(z1{up}..z5) intersectionpoint (z6--z7);
+	interdotdraw z1..z2{left}..z3{down}..z4{right}..z1{up};
+	dotdraw z1{up}..z8..z5;
+	dotdraw z6--z8--z7;
+	adjustwidth(xgap#,xgap#);
+	penlabels(range 1 thru 150);
+	endchar;
+fi
 
 clpchar("Thorn",4.5u#,ht#,0);
 pickup cornerpen;
@@ -4315,7 +4761,6 @@ clpcombinedchar("odieresis","o","dieresis","top",x_ht#+acc_ht#,0);
 clpcombinedchar("ocircumflex","o","circumflex","top",x_ht#+acc_ht#,0);
 clpcombinedchar("otilde","o","tilde","top",x_ht#+acc_ht#,0);
 clpcombinedchar("ohungarumlaut","o","hungarumlaut","top",x_ht#+acc_ht#,0);
-%clpcombinedchar("oslash","o","slash","bot",x_ht#,0);
 clpcombinedchar("racute","r","acute","top",x_ht#+acc_ht#,0);
 clpcombinedchar("rcaron","r","caron","top",x_ht#+acc_ht#,0);
 clpcombinedchar("sacute","s","acute","top",x_ht#+acc_ht#,0);
