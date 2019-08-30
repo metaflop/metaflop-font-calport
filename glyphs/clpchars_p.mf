@@ -1576,42 +1576,36 @@ fi
 if sset=1:
 	clpchar("six",4.5u#,ht#,0);
 	pickup cornerpen;
-	x1=x9=0.125w;
-	x7=0.2w;
-	x3=x4=x5=x1+0.5(x8-x1);
-	x8=0.875w;
-	x6=0.8w;
-	bot y4=0-o;
-	top y3=h+o;
-	y6=0.875h;
-	y7=0.825h;
-	y5=y9=0.6h;
-	y1=y8=y4+0.5(y5-y4);
-	interdotdraw z1{up}..z5{right}..z8{down}..z4{left}..cycle;
-	interdotdraw z1--z9{up}..z7..z3{right}..z6;
-	adjustwidth(xgap#,xgap#);
-	penlabels(range 1 thru 150);
-	endchar;
-elseif sset=2:
-	clpchar("six",4.5u#,ht#,0);
-	pickup cornerpen;
-	x1=0.125w;
-	x5=x4=x1+0.5(x8-x1);
+	x1=0.15w;
 	x3=0.6w;
-	x8=0.875w;
+	x4=x5=x1+0.5(x8-x1);
+	x8=0.85w;
 	bot y4=0-o;
 	top y3=h;
 	y5=0.6h;
 	y1=y8=y4+0.5(y5-y4);
-	path p;
-	p:=z1{up}..z5{right};
-	% z10=(p) intersectionpoint (z1--z3);
-	interdotdraw z1{up}..z5{right}..z8{down}..z4{left}..cycle;
-	% dotdraw z1--z3;
+	% bisection (bifurcation) to determine the tangent
+	numeric ta,tb,t;
+	pair tangentpoint;
+	ta=0; % boundaries
+	tb=1; % boundaries
+	forever:
+	 exitif abs(ta-tb)<=0.0001;
+	 t:=.5[ta,tb];
+	 tangentpoint:=point t of (z1{up}..z5{right});
+     if angle(z3-tangentpoint)>angle(direction t of (z1{up}..z5{right})):
+      tb
+     else: 
+      ta
+     fi:=t; 
+    endfor
+    z10=tangentpoint;
+	dotdraw z10--z3;
+	interdotdraw z10..z5{right}..z8{down}..z4{left}..z1{up}..cycle;
 	adjustwidth(xgap#,xgap#);
 	penlabels(range 1 thru 150);
 	endchar;
-elseif sset=3:
+elseif (sset=2) or (sset=3):
 	clpchar("six",4.5u#,ht#,0);
 	pickup cornerpen;
 	x1=x9=0.125w;
@@ -1689,40 +1683,36 @@ fi
 if sset=1:
 	clpchar("nine",4.5u#,ht#,0);
 	pickup cornerpen;
-	x1=x9=0.875w;
-	x3=x4=x5=x8+0.5(x1-x8);
-	x7=0.8w;
-	x8=0.125w;
-	x6=0.2w;
-	top y4=h+o;
-	bot y3=0-o;
-	y6=0.125h;
-	y7=0.175h;
-	y5=y9=0.4h;
-	y1=y8=y5+0.5(y4-y5);
-	interdotdraw z1{down}..z5{left}..z8{up}..z4{right}..cycle;
-	interdotdraw z1--z9{down}..z7..z3{left}..z6;
-	adjustwidth(xgap#,xgap#);
-	penlabels(range 1 thru 150);
-	endchar;
-elseif sset=2:
-	clpchar("nine",4.5u#,ht#,0);
-	pickup cornerpen;
-	x1=x7=x10=0.875w;
+	x1=0.85w;
+	x3=0.4w;
 	x4=x5=x8+0.5(x1-x8);
-	x3=0.15w;
-	x8=0.1w;
+	x8=0.15w;
 	top y4=h+o;
-	bot y3=bot y10=0;
-	y7=0.6h;
+	bot y3=0;
 	y5=0.4h;
 	y1=y8=y5+0.5(y4-y5);
-	interdotdraw z1{down}..z5{left}..z8{up}..z4{right}..cycle;
-	dotdraw z1--z10--z3;
+	% bisection (bifurcation) to determine the tangent
+	numeric ta,tb,t;
+	pair tangentpoint;
+	ta=0; % boundaries
+	tb=1; % boundaries
+	forever:
+	 exitif abs(ta-tb)<=0.0001;
+	 t:=.5[ta,tb];
+	 tangentpoint:=point t of (z1{down}..z5{left});
+     if angle(z3-tangentpoint)>angle(direction t of (z1{down}..z5{left})):
+      tb
+     else: 
+      ta
+     fi:=t; 
+    endfor
+    z10=tangentpoint;
+	dotdraw z10--z3;
+	interdotdraw z10..z5{left}..z8{up}..z4{right}..z1{down}..cycle;
 	adjustwidth(xgap#,xgap#);
 	penlabels(range 1 thru 150);
 	endchar;
-elseif sset=3:
+elseif (sset=2) or (sset=3):
 	clpchar("nine",4.5u#,ht#,0);
 	pickup cornerpen;
 	x1=x9=0.875w;
