@@ -1,6 +1,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                                                                         %
-% MF Calport v1.4                                                         %
+% MF Calport v1.45                                                         %
 % © 2019 by Marco Mueller                                                 %
 % thanks to Linus Roemer, Alexis Reigel, Jeremy Gibbons                   %
 % <http://www.metaflop.com>                                               %
@@ -939,7 +939,7 @@ elseif sset=3:
 fi
 
 % dollar
-if sset=1:
+if (sset=1) or (sset=2):
 	clpchar("dollar",5u#,ht#,0);
 	pickup cornerpen;
 	x1=x2=x8=0.1w;
@@ -964,31 +964,6 @@ if sset=1:
 	adjustwidth(xgap#,xgap#);
 	penlabels(range 1 thru 150);
 	endchar;		
-elseif sset=2:
-	clpchar("dollar",5u#,ht#,0);
-	pickup cornerpen;
-	x1=0.15w;
-	x2=0.1w;
-	x5=x6=0.4w;
-	x3=x8=0.6w;
-	x10=x11=x12=x13=0.5w;
-	x4=0.9w;
-	x7=0.85w;
-	bot y1=bot y3=bot y13=0;
-	top y6=top y7=top y12=h;
-	y4=0.5(y3+y8);
-	y5=y8=0.5h;
-	y2=0.5(y5+y6);
-	y10=-0.2h;
-	y11=1.2h;
-	dotdraw z1--z13;
-	interdotdraw z13--z3{right}..z4{up}..z8{left}--z5{left}..z2{up}..z6{right}--z12;
-	dotdraw z12--z7;
-	dotdraw z10--z13;
-	dotdraw z11--z12;
-	adjustwidth(xgap#,xgap#);
-	penlabels(range 1 thru 150);
-	endchar;
 elseif sset=3:
 	clpchar("dollar",4.5u#,ht#,0);
 	pickup cornerpen;
@@ -2637,7 +2612,7 @@ elseif sset=3:
 fi
 
 % S
-if sset=1:
+if (sset=1) or (sset=2):
 	clpchar("S",5u#,ht#,0);
 	pickup cornerpen;
 	x1=x2=x8=0.1w;
@@ -2658,26 +2633,6 @@ if sset=1:
 	adjustwidth(xgap#,xgap#);
 	penlabels(range 1 thru 150);
 	endchar;	
-elseif sset=2:
-	clpchar("S",5u#,ht#,0);
-	pickup cornerpen;
-	x1=0.15w;
-	x2=0.1w;
-	x5=x6=0.4w;
-	x3=x8=0.6w;
-	x4=0.9w;
-	x7=0.85w;
-	bot y1=bot y3=0;
-	top y6=top y7=h;
-	y4=0.5(y3+y8);
-	y5=y8=0.5h;
-	y2=0.5(y5+y6);
-	interdotdraw z1--z3{right}..z4{up}..z8{left}--z5{left}..z2{up}..z6{right}--z7;
-	charanchortops_[charcode]=(.5w,h);
-	charanchorbots_[charcode]=(.5w,0);
-	adjustwidth(xgap#,xgap#);
-	penlabels(range 1 thru 150);
-	endchar;
 elseif sset=3:
 	clpchar("S",4.5u#,ht#,0);
 	pickup cornerpen;
@@ -3683,7 +3638,7 @@ elseif sset=3:
 fi
 
 % s
-if sset=1:
+if (sset=1) or (sset=2):
 	clpchar("s",4u#,x_ht#,0);
 	pickup cornerpen;
 	x1=x2=x8=0.15w;
@@ -3699,26 +3654,6 @@ if sset=1:
 	y8=0.55x_ht;
 	y9=0.45x_ht;
 	interdotdraw z1..z3{right}..z4{up}..z5{z8-z9}..z2{up}..z6{right}..z7;
-	charanchortops_[charcode]=(.5w,h);
-	charanchorbots_[charcode]=(.5w,0);
-	adjustwidth(xgap#,xgap#);
-	penlabels(range 1 thru 150);
-	endchar;
-elseif sset=2:
-	clpchar("s",4u#,x_ht#,0);
-	pickup cornerpen;
-	x1=0.175w;
-	x2=0.15w;
-	x5=x6=0.4w;
-	x3=x8=0.6w;
-	x4=0.85w;
-	x7=0.825w;
-	bot y1=bot y3=0;
-	top y6=top y7=x_ht;
-	y4=0.5(y3+y8);
-	y5=y8=0.5x_ht;
-	y2=0.5(y5+y6);
-	interdotdraw z1--z3{right}..z4{up}..z8{left}--z5{left}..z2{up}..z6{right}--z7;
 	charanchortops_[charcode]=(.5w,h);
 	charanchorbots_[charcode]=(.5w,0);
 	adjustwidth(xgap#,xgap#);
