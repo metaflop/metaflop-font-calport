@@ -1,7 +1,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                                                                         %
-% MF Calport v1.3                                                         %
-% © 2019 by Marco Mueller                                                 %
+% MF Calport v1.45                                                        %
+% © 2021 by Marco Mueller                                                 %
 % thanks to Linus Roemer, Alexis Reigel, Jeremy Gibbons                   %
 % <http://www.metaflop.com>                                               %
 % licensed under gpl v3: www.gnu.org/licenses/                            %
@@ -569,13 +569,10 @@ elseif penshape=2:
  penpath=unitsquare shifted -(.5,.5) xscaled px yscaled py rotated prot;
  pickup pensquare xscaled px yscaled py rotated prot; 
 elseif penshape=3:
- penpath=unitsquare shifted -(.5,.5) xscaled px yscaled eps rotated prot;
- pickup penrazor xscaled px rotated prot;
-elseif penshape=4:
  penpath=((dir(-30)--dir(90)--dir(210)--cycle) xscaled .5px yscaled .5py rotated prot);
  capsule_def(pentriangle) makepen(penpath);
  pickup pentriangle;
-elseif penshape=5:
+elseif penshape=4:
  penpath=((dir(-54)--dir(18)--dir(90)--dir(162)--dir(234)--cycle) xscaled .5px yscaled .5py rotated prot);
  capsule_def(penpentagon) makepen(penpath);
  pickup penpentagon; 
@@ -729,7 +726,7 @@ elseif (drawingstyle=2) or (drawingstyle=3):
   pickup pencircle scaled ptiny;
   % measure the length of the arc:
   save divnumber,divlength;
-  divnumber:=round(dnum/(max(px,py))*arcl(c)); % number of points on one subpath
+  divnumber:=floor(.5+dnum/(max(px,py))*arcl(c)); % number of points on one subpath 
   divlength:=1/divnumber*arcl(c);
   % draw a white carpet anyway 
   if drawingstyle=3: 
@@ -791,7 +788,7 @@ elseif (drawingstyle=2) or (drawingstyle=3):
   if drawingstyle=3: 
    for k=0 upto length(c)-1:
     cc:=subpath(k,k+1) of c;
-    divnumber:=round(dnum/(max(px,py))*arcl(cc)); % number of points on one subpath
+    divnumber:=floor(.5+dnum/(max(px,py))*arcl(cc)); % number of points on one subpath
     divlength:=1/divnumber*arcl(cc);
     for i=0 upto divnumber-1:
      erase fill penpath shifted point arct(divlength*i,cc) of cc;
@@ -801,7 +798,7 @@ elseif (drawingstyle=2) or (drawingstyle=3):
   % draw actual points
   for k=0 upto length(c)-1:
    cc:=subpath(k,k+1) of c;
-   divnumber:=round(dnum/(max(px,py))*arcl(cc)); % number of points on one subpath
+   divnumber:=floor(.5+dnum/(max(px,py))*arcl(cc)); % number of points on one subpath
    divlength:=1/divnumber*arcl(cc);
    for i=0 upto divnumber-1:
     if drawingstyle=3: 

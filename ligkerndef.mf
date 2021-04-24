@@ -1,7 +1,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                                                                         %
-% MF Calport v1.3                                                         %
-% © 2019 by Marco Mueller                                                 %
+% MF Calport v1.45                                                         %
+% © 2020 by Marco Mueller                                                 %
 % thanks to Linus Roemer, Alexis Reigel, Jeremy Gibbons                   %
 % <http://www.metaflop.com>                                               %
 % licensed under gpl v3: www.gnu.org/licenses/                            %
@@ -45,7 +45,7 @@ addkernclassf("v","w");
 addkernclassf("x");
 addkernclassf("y");
 addkernclassf("yacute","ydieresis");
-%%addkernclasss("dcaron","lacute","lcaron","lslash");
+%addkernclasss("dcaron","lacute","lcaron","lslash");
 
 % second
 addkernclasss("A","Abreve","Aogonek","Agrave","Aacute","Acircumflex","Atilde","Adieresis","Aring","AE","Germandbls");
@@ -78,7 +78,7 @@ addkernclasss("z");
 addkernclasss("zacute","zcaron","zdotaccent");
 addkernclasss("period","comma");
 addkernclasss("colon","semicolon");
-% addkernclasss("quoteright","quotedblright","quotesingle","quotedbl");
+%addkernclasss("quoteright","quotedblright","quotesingle","quotedbl");
 addkernclasss("hyphen","emdash","endash");
 
 % kerning pairs
